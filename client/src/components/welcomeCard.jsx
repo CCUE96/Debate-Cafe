@@ -3,7 +3,7 @@ import Typewriter from './typewriter';
 import '../index.css'
 import Container from '@mui/material/Container'
 import { Typography } from '@mui/material';
-import { Button } from '@mui/material';
+
 const WelcomeCard = () => {
     const [showText, setShowText] = useState(false);
 
@@ -13,6 +13,15 @@ const WelcomeCard = () => {
         }, 2250)
         return () => clearTimeout(timer)
     }, []);
+    const [showText2, setShowText2] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowText2(true)
+        }, 4050)
+        return () => clearTimeout(timer)
+    }, []);
+
     return (
         <Container>
             <Typography variant="h1" align="center">
@@ -22,12 +31,21 @@ const WelcomeCard = () => {
             </Typography>
             <Typography variant='h2' align='center'>
                 {showText && (
-                    <p className={'blinking-cursor yanone'}>
-                        <Typewriter text="Welcome to Debate Cafe! Here you will find a new and intuitive way of participating or viewing debates!" speed={70} />
+                    <p className={'blinking-cursor2s yanone'}>
+                        <Typewriter text="Welcome to Debate Cafe! " speed={70} />
                     </p>
                 )}
+                </Typography>
+                <Typography variant='h2' align='center'>
+                {showText2 && (
+                    <p className = {'blinking-cursor yanone'}>
+                        <Typewriter text="Here you will find a new and intuitive way of participating in debates!" speed={70} />
+                    </p>
+                )}
+
+
             </Typography>
-            
+
         </Container>
     )
 }
