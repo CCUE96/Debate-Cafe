@@ -9,7 +9,7 @@ const GetStarted = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowButton(true)
-        }, 11000)
+        }, 10500)
         return() => clearTimeout(timer)
     }, [])
     return (
