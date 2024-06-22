@@ -1,33 +1,35 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import Typewriter from './typewriter';
 import '../index.css'
 import Container from '@mui/material/Container'
 import { Typography } from '@mui/material';
+import { Button } from '@mui/material';
 const WelcomeCard = () => {
     const [showText, setShowText] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout (() => {
+        const timer = setTimeout(() => {
             setShowText(true)
         }, 2250)
         return () => clearTimeout(timer)
     }, []);
-return (
-    <Container>
-    <Typography  variant="h1" align="center">
-    <h1 className={"blinking-cursor2s pacifico"}>
-    <Typewriter text = "Debate Cafe" speed = {180}/>
-    </h1>
-    </Typography>
-    <Typography variant='h2' align='center'>
-    {showText && (
-    <p className={'blinking-cursor yanone'}>
-        <Typewriter text = "this site is currently being built ...." speed = {80}/>
-    </p>
-    )}
-    </Typography>
-    </Container>
-)
+    return (
+        <Container>
+            <Typography variant="h1" align="center">
+                <h1 className={"blinking-cursor2s pacifico"}>
+                    <Typewriter text="Debate Cafe" speed={180} />
+                </h1>
+            </Typography>
+            <Typography variant='h2' align='center'>
+                {showText && (
+                    <p className={'blinking-cursor yanone'}>
+                        <Typewriter text="Welcome to Debate Cafe! Here you will find a new and intuitive way of participating or viewing debates!" speed={70} />
+                    </p>
+                )}
+            </Typography>
+            
+        </Container>
+    )
 }
 
 export default WelcomeCard

@@ -9,8 +9,8 @@
   font-weight: 400;
   font-style: normal;
 }
-.pageTitle {
-  font-size: 100px
+.welcomeBtn {
+  font-size: 40px
 }
 .blinking-cursor2s::after {
   content: '|';
