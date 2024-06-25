@@ -12,9 +12,6 @@ const GetStarted = () => {
 
     const handleGetStartedClick = () => {
         setShowIntroduction(true);
-        if (introductionRef.current) {
-            introductionRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
     };
 
     useEffect(() => {
