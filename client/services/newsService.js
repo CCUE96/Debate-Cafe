@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_GNEWS_API_KEY;
+const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
 const BASE_URL = 'https://gnews.io/api/v4';
 
 export const fetchNews = async (query) => {
