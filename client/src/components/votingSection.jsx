@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper'
 
 export default function VotingSection() {
     const [selectedValue, setSelectedValue] = React.useState('');
-    const [showResults, setShowResults] = React.useState(false); // Step 1
+    const [showResults, setShowResults] = React.useState(false); 
 
 
     const handleChange = (event) => {

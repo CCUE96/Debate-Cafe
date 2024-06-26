@@ -15,7 +15,7 @@ const imgLink =
 function CommentSection() {
   return (
     <div style={{ padding: 14, marginLeft: '200px', marginRight: '200px' }} className="App">
-    <Typography variant="h4" gutterBottom>Comments</Typography>
+    <Typography variant="h4" gutterBottom><div className='pacifico'>Comments</div></Typography>
     <Paper style={{ padding: "40px 20px" }}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
