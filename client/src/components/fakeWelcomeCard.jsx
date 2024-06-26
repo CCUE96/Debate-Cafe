@@ -3,9 +3,21 @@ import Typewriter from './typewriter';
 import '../index.css'
 import Container from '@mui/material/Container'
 import { Typography } from '@mui/material';
+import {Button} from '@mui/material'
+import { useNavigate } from 'react-router-dom';
+
+
 const FakeWelcomeCard = () => {
     const [showText, setShowText] = useState(false);
+    const [showButton, setShowButton] = useState(false);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowButton(true)
+        }, 6000)
+        return () => clearTimeout(timer)
+    }, [])
     useEffect(() => {
         const timer = setTimeout (() => {
             setShowText(true)
@@ -26,6 +38,11 @@ return (
     </p>
     )}
     </Typography>
+    {showButton && (
+       < Typography align='center'>
+    <Button  onClick={() => navigate('/')} > <p className={'yanone welcomeBtn'}>Click Here to Head Back home</p></Button>
+    </Typography>
+    )}
     </Container>
 )
 }

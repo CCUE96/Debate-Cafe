@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper'
 
 export default function VotingSection() {
     const [selectedValue, setSelectedValue] = React.useState('');
- mikeReactDebatePage
     const [showResults, setShowResults] = React.useState(false); 
 
 

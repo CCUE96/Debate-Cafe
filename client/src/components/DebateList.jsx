@@ -11,16 +11,16 @@ const DebateList = () => {
           <Box className="yanone" sx={{ mb: 2 }}>Hot Debates</Box>
           <Box component="ul" sx={{ listStyle: 'none', p: 0 }}>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">Trump v Biden</Link>
+              <Link href='/debates' underline="hover">Trump v Biden</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">Trump v Biden</Link>
+              <Link href='/debates' underline="hover">Trump v Biden</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">Trump v Biden</Link>
+              <Link href='/debates' underline="hover">Trump v Biden</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">Trump v Biden</Link>
+              <Link href='/debates' underline="hover">Trump v Biden</Link>
             </Box>
           </Box>
         </Typography>
@@ -30,16 +30,16 @@ const DebateList = () => {
           <Box className="yanone" sx={{ mb: 2 }}>New Debates</Box>
           <Box component="ul" sx={{ listStyle: 'none', p: 0 }}>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">AI: Good or Bad</Link>
+              <Link href='/debates' underline="hover">AI: Good or Bad</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">AI: Good or Bad</Link>
+              <Link href='/debates' underline="hover">AI: Good or Bad</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">AI: Good or Bad</Link>
+              <Link href='/debates' underline="hover">AI: Good or Bad</Link>
             </Box>
             <Box component="li" sx={{ mb: 2 }}>
-              <Link href='https://www.google.com' underline="hover">AI: Good or Bad</Link>
+              <Link href='/debates' underline="hover">AI: Good or Bad</Link>
             </Box>
 
           </Box>
