@@ -7,7 +7,7 @@ import Radio from '@mui/material/Radio';
 import { Button } from '@mui/material/';
 import Paper from '@mui/material/Paper'
 
-export default function DebateCard() {
+export default function VotingSection() {
     const [selectedValue, setSelectedValue] = React.useState('');
     const [showResults, setShowResults] = React.useState(false); // Step 1
 
