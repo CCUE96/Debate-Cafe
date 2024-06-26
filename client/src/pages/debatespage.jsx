@@ -1,4 +1,4 @@
-import DebateCard from "../components/debateCard"
+import VotingSection from "../components/votingSection"
 import CommentSection from "../components/commentsection"
 
 
@@ -8,7 +8,7 @@ export default function DebatePage() {
     return (
         <>
         
-        <DebateCard/>
+        <VotingSection/>
         <CommentSection/>
         
         
