@@ -9,6 +9,12 @@ const GetStarted = () => {
     const [showButton, setShowButton] = useState(false);
     const [showIntroduction, setShowIntroduction] = useState(false);
     const introductionRef = useRef(null);
+    
+
+
+   
+ 
+
 
     const handleGetStartedClick = () => {
         setShowIntroduction(true);

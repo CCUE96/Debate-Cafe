@@ -22,7 +22,7 @@ return (
     <Typography variant='h2' align='center'>
     {showText && (
     <p className={'blinking-cursor yanone'}>
-        <Typewriter text = "this site is currently being built ...." speed = {80}/>
+        <Typewriter text = "We Have Encountered an Error....." speed = {80}/>
     </p>
     )}
     </Typography>
