@@ -61,6 +61,25 @@ const resolvers = {
             }
 
         },
+        // Leaving this commented out for now because don't want to mess you up Chris
+        // Comments: async () => {
+        //     try {
+        //         const allComments = await Comment.find();
+        //         return allComments;
+        //     } catch (error) {
+        //         console.error('Error fetching comments:', error);
+        //         throw new Error('Failed to fetch comments');
+        //     }
+        // },
+        // Comments: async (parent, { id }) => {
+        //     try {
+        //         const singleComment = await Comment.findById(id);
+        //         return singleComment;
+        //     } catch (error) {
+        //         console.error('Error fetching comment by ID:', error);
+        //         throw new Error('Failed to fetch comment by ID');
+        //     }
+        // }
     },
     Mutation: {
         createUser: async (_, { userData }) => {
@@ -90,7 +109,36 @@ const resolvers = {
                 console.error('Error deleting user:', error);
                 throw new Error('Failed to delete user');
             }
-        }
+        },
+         // Leaving this commented out for now because don't want to mess you up Chris
+        // createComment: async (_, { commentData }) => {
+        //     try {
+        //         const newComment = new Comment(commentData);
+        //         await newComment.save();
+        //         return newComment;
+        //     } catch (error) {
+        //         console.error('Error creating comment:', error);
+        //         throw new Error('Failed to create comment');
+        //     }
+        // },
+        // updateComment: async (_, { id, commentData }) => {
+        //     try {
+        //         const updatedComment = await Comment.findByIdAndUpdate(id);
+        //         return updatedComment; 
+        //     } catch (error) {
+        //         console.error('Error updating comment:', error);
+        //         throw new Error('Failed to update comment');
+        //     }
+        // },
+        // deleteComment: async (_, { id }) => {
+        //     try {
+        //         const deletedComment = await Comment.findByIdAndDelete(id);
+        //         return `Comment deleted`;
+        //     } catch (error) {
+        //         console.error('Error deleting comment:', error);
+        //         throw new Error('Failed to delete comment');
+        //     }
+
     }
 }
 
