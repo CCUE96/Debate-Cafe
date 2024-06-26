@@ -9,6 +9,7 @@ export default function Homepage() {
    
     return (
         <>
+        
         <WelcomeCard/>
         <GetStarted />
         

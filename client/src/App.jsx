@@ -1,8 +1,13 @@
-import Homepage from "./pages/homepage"
-export default function App() {
+import { Outlet } from 'react-router-dom';
+import Navbar from "./components/navbar"
+function App() {
+  // The Outlet component will conditionally swap between the different pages according to the URL
   return (
-      <Homepage/>
-  )
-
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }
 
+export default App;
