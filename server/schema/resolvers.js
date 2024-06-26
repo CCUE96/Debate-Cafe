@@ -61,7 +61,7 @@ const resolvers = {
             }
 
         },
-        // Leaving this commented out for now because don't want to mess you up Chris
+         // Leaving this commented out for now because don't want to mess you up Chris
         // Comments: async () => {
         //     try {
         //         const allComments = await Comment.find();
