@@ -1,6 +1,4 @@
-const { gql } = require('apollo-server');
-
-const typeDefs = gql`
+const typeDefs =`
 type Team {
     id: ID!
     name: String!
@@ -25,6 +23,10 @@ type User {
 type Query {
     matchups: [Matchup]
     matchup(id: ID!): Matchup
+    teams:[Team]
+    team(id: ID!) : Team
+    users: [User]
+    user(id : ID!): User
 }
 
 type Mutation {

@@ -3,7 +3,7 @@ const {Team, Matchup, Users} = require('../models')
 
 const resolvers = {
     Query: {
-        Matchups:async(parent,args)=>{
+        matchups:async(parent,args)=>{
             try{
                 const allMatchups = await Matchup.find().populate('teams')
                 return allMatchups;
@@ -12,7 +12,7 @@ const resolvers = {
              throw new Error('failed to fetch matchups')
             }
         },
-        Matchup: async (parent,{ id }) => {
+        matchup: async (parent,{ id }) => {
             try{
                 const singleMatchup = await Matchup.findById(id).populate('teams')
                 return singleMatchup
@@ -21,7 +21,7 @@ const resolvers = {
                 throw new Error('failed to fetch single matchup by id')
             }
         },
-        Teams: async () => {
+        teams: async () => {
             try{
                 const allTeams = await Team.find();
                 return allTeams;
@@ -31,7 +31,7 @@ const resolvers = {
 
             }
         },
-        Team: async (parent,{id}) => {
+        team: async (parent,{id}) => {
             try{
                 const individualTeam = await Team.findById(id);
                 return individualTeam
@@ -41,7 +41,7 @@ const resolvers = {
 
             }
         },
-        Users: async ()=>{
+        users: async ()=>{
             try{
                 const allUsers = await Users.find()
                     return allUsers
@@ -51,7 +51,7 @@ const resolvers = {
 
             }
         },
-        User: async (parent,{id})=>{
+        user: async (parent,{id})=>{
             try{
                 const individualUser = await Users.findById(id)
                 return individualUser
