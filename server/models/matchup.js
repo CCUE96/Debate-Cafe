@@ -18,3 +18,7 @@ const matchUpSchema = new Schema({
         default: 0
     }
 });
+
+const Matchup = model('Matchup', matchUpSchema)
+
+module.exports = Matchup;
