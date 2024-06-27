@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import  Paper   from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import '../index.css'
+// import '../index.css'
 
 
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Typewriter from './typewriter';
-import '../index.css'
+// import '../index.css'
 import Container from '@mui/material/Container'
 import { Typography } from '@mui/material';
 
