@@ -20,6 +20,11 @@ type User {
     matchups: [Matchup]
 }
 
+type Comment {
+    id: ID!
+    comment_text: String!
+    user: User!}
+
 type Query {
     matchups: [Matchup]
     matchup(id: ID!): Matchup
