@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container'
-import '../index.css'
+// import '../index.css'
 import { Typography } from '@mui/material'
 import DebateList from './DebateList'
 

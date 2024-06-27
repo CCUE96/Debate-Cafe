@@ -1,5 +1,5 @@
 
-import '../index.css'
+// import '../index.css'
 import { Grid, Typography, Link, Box } from '@mui/material';
 
 const DebateList = () => {
