@@ -12,6 +12,7 @@ const LoginForm = () => {
         // Handle login logic here
         console.log(email, password);
     };
+    
     const togglePassword = () => {
         setShowPassword(!showPassword)
     }
