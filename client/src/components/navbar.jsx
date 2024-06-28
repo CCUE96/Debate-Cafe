@@ -111,7 +111,7 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 component={Link}
-                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/login' : '#'}
+                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : '#'}
               >
                 {page}
               </Button>
