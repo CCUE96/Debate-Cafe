@@ -5,15 +5,36 @@ import { Link } from 'react-router-dom'
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
+    const [isEmailValid, setIsEmailValid] = useState(true);
     const [password, setPassword] = useState('');
+    const [isPasswordValid, setIsPasswordValid] = useState(true);
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
     const [showPassword, setShowPassword] = useState(false)
-
+    const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle login logic here
         console.log(email, password);
+    };
+
+    const handleEmailChange = (e) => {
+        const emailInput = e.target.value;
+        setEmail(emailInput);
+        const isValid = emailRegex.test(emailInput)
+        setIsEmailValid(isValid);
+    };
+    const handlePasswordChange = (e) => {
+        const passwordInput = e.target.value;
+        setPassword(passwordInput);
+        setIsPasswordValid(passwordRegex.test(passwordInput));
+    };
+    const handleConfirmPasswordChange = (e) => {
+        const confirmPasswordInput = e.target.value;
+        setConfirmPassword(confirmPasswordInput);
+        setIsConfirmPasswordValid(confirmPasswordInput === password);
     };
     const togglePassword = () => setShowPassword(!showPassword);
 
@@ -34,7 +55,9 @@ const RegisterForm = () => {
                                     fullWidth
                                     required
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={handleEmailChange}
+                                    error={!isEmailValid}
+                                    helperText={!isEmailValid ? "Please enter a valid Email" : ""}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -45,7 +68,9 @@ const RegisterForm = () => {
                                     fullWidth
                                     required
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={handlePasswordChange}
+                                    error={!isPasswordValid}
+                                    helperText={!isPasswordValid ? "Please enter at least 8 characters, including an uppercase, lowercase, and special character": ""}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position='end'>
@@ -70,7 +95,9 @@ const RegisterForm = () => {
                                     fullWidth
                                     required
                                     value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={handleConfirmPasswordChange}
+                                    error={!isConfirmPasswordValid}
+                                    helperText={!isConfirmPasswordValid ? "Passwords do not match" : ""}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position='end'>
@@ -88,11 +115,11 @@ const RegisterForm = () => {
                             </Grid>
                             <Grid container justifyContent="center" mt={2}>
                                 <Grid item>
-                                    <Link to='/'>
-                                        <Button variant="contained" color="primary">
-                                            Register
+                                    
+                                        <Button variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid}>
+                                        <Link to='/' style={{ textDecoration: 'none', color: 'white'}}> Register </Link>
                                         </Button>
-                                    </Link>
+                                   
                                 </Grid>
 
                             </Grid>
