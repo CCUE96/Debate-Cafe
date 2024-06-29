@@ -117,7 +117,7 @@ const RegisterForm = () => {
                                 <Grid item>
                                     
                                         <Button variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid}>
-                                        <Link to='/' style={{ textDecoration: 'none', color: 'white'}}> Register </Link>
+                                        <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}> Register </Link>
                                         </Button>
                                    
                                 </Grid>
