@@ -9,6 +9,7 @@ import DebatePage from './pages/debatespage.jsx';
 import NewsSearchPage from './pages/NewsSearchPage.jsx';
 import LoginPage from './pages/loginpage.jsx';
 import RegisterPage from './pages/registerpage.jsx';
+import AboutPage from './pages/aboutme.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <RegisterPage/>
+      },
+      {
+        path: 'about',
+        element: <AboutPage/>
       }
     ]
   }
