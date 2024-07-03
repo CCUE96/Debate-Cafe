@@ -125,7 +125,7 @@ const RegisterForm = () => {
                             </Grid>
                             <Grid container justifyContent="center" mt={2}>
                                 <Grid item>
-                                    <Link to='/login'>
+                                    <Link to='/'>
                                         <Button variant="contained" color="primary">
                                             Back to Login
                                         </Button>
