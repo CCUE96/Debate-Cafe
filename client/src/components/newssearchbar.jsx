@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { fetchNews } from '../../services/newsService';
-import NewsArticle from '../components/NewsArticle';
-import { TextField, Button, Grid, Typography, Box } from '@mui/material';
+import { fetchNews } from "../services/newsService";
+import NewsArticle from "./NewsArticle";
+import { TextField, Button, Grid, Typography, Box } from "@mui/material";
 
 function NewsSearchBar() {
     const [query, setQuery] = useState('');
