@@ -7,7 +7,6 @@ import GetStarted from "../components/homepage/getStarted";
 export default function Homepage() {
     return (
         <>
-        
         <WelcomeCard/>
         <GetStarted />
         </>
