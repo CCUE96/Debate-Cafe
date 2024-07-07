@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchNews } from '../../../services/newsService';
+import { fetchNews } from '../../services/newsService';
 import NewsArticle from './NewsArticle';
 import { TextField, Button, Grid, Typography, Box } from '@mui/material';
 
