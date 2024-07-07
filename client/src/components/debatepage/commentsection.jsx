@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -15,9 +15,40 @@ const imgLink =
 
 function CommentSection() {
   const [showReplyBox, setShowReplyBox] = useState(false);
+  const [comment, setComment] = useState("");
 
   const toggleReplyBox = () => {
     setShowReplyBox(!showReplyBox);
+  };
+
+  const handleSubmit = async () => {
+    // 1. Validate the input
+    if (!comment.trim()) {
+      alert("Please enter a comment.");
+      return;
+    }
+  
+    // 2 & 3. Here you would typically send the comment to your backend server
+    // This is a placeholder for an API call
+    // const response = await fetch('YOUR_BACKEND_ENDPOINT', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ comment }),
+    // });
+  
+    // Assuming the API call is successful and you get the updated list of comments back
+    // Update your state here to include the new comment
+    // This is a simplified example, assuming you have a state variable for comments
+    // setComments(prevComments => [...prevComments, comment]);
+  
+    // 4. Clear the input field after submission
+    setComment("");
+  
+    // 5. Optionally, update the UI to show the new comment
+    // This step depends on how you're managing state and rendering comments
+    toggleReplyBox();
   };
   return (
     < div style={{ padding: 14, marginLeft: '200px', marginRight: '200px' }} className="App">
@@ -45,14 +76,22 @@ function CommentSection() {
             </Typography>
             <Button variant="outlined" style={{ marginTop: "10px" }} onClick={toggleReplyBox}>Reply</Button>
           {showReplyBox && (
+            <>
             <TextField
               label="Your Reply"
               variant="outlined"
               fullWidth
               multiline
+              value={comment}
+              onChange={(e)=> setComment(e.target.value)}
               rows={4}
               style={{ marginTop: "10px" }}
+              
             />
+            <Button onClick={handleSubmit} variant="contained" color="primary" sx={{marginBottom: '20px', marginTop: '10px'}} disabled={comment.length < 20}>
+        Post Reply
+      </Button>
+            </>
           )}
           </Grid>
         </Grid>
