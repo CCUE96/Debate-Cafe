@@ -12,8 +12,9 @@ export default function DebatePage() {
         
         <VotingSection/>
         <PostSection/>
-        <AIChatModal />
+       
         <CommentSection/>
+        <AIChatModal />
         
         
         </>
