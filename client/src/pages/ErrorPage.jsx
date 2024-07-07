@@ -1,4 +1,4 @@
-import FakeWelcomeCard from '../components/fakeWelcomeCard'
+import FakeWelcomeCard from "../components/errorpage/fakeWelcomeCard"
 
 
 export default function ErrorPage() {
