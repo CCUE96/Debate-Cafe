@@ -1,4 +1,4 @@
-import AboutMe from "../components/aboutsection"
+import AboutMe from "../components/aboutme/aboutsection"
 
 export default function AboutPage() {
     

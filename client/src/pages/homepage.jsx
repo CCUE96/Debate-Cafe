@@ -1,5 +1,5 @@
-import WelcomeCard from "../components/welcomeCard";
-import GetStarted from "../components/getStarted";
+import WelcomeCard from "../components/homepage/welcomeCard";
+import GetStarted from "../components/homepage/getStarted";
 
 
 // import FakeWelcomeCard from "../components/fakeWelcomeCard";

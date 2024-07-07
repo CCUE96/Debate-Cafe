@@ -1,4 +1,4 @@
-import NewsSearchBar from "../components/newssearchbar";
+import NewsSearchBar from "../components/searchpage/newssearchbar";
 function NewsSearchPage() {
    
 

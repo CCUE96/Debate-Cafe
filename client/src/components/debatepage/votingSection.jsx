@@ -42,7 +42,7 @@ export default function VotingSection() {
                 <FormControlLabel value="Biden" control={<Radio disabled={showResults}/>} label="Biden" />
             </RadioGroup>
            
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button variant="contained" color="primary" onClick={handleSubmit} disabled={selectedValue === ''}>
                 Submit Vote
             </Button>
             {showResults && (
