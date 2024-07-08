@@ -111,7 +111,7 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 component={Link}
-                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? '/donations' : '#'}
+                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
               >
                 {page}
               </Button>

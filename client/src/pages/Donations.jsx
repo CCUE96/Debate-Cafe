@@ -1,11 +1,11 @@
 // leaving commented out for now, not sure if this is the proper code, but got it from copilot and need to import in main.jsx, will work on this over the weekend
 // import { useState} from 'react'
-import DonationForm from '../components/DonationForm/DonationForm';
+// import DonationForm from '../components/DonationForm/DonationForm';
 
 export default function Donations() {
    return (
     <>
-    <DonationForm />
+    {/* <DonationForm /> */}
     </>
    )
 }

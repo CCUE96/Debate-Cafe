@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <AboutPage/>
       },
       {
-        path:'donations',
+        path:'https://donate.stripe.com/test_9AQ1675Mn5L57fO144',
         element: <Donations />
       }
     ]
