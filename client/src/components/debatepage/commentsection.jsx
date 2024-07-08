@@ -35,12 +35,14 @@ function CommentSection() {
   // };
   return (
     <>
+
      <Typography variant="h4" gutterBottom><div className='pacifico'>Comments</div>
      </Typography>
      <CommentCard comment={mockProps}/>
      </>
       
   )
+
 }
 
 export default CommentSection
