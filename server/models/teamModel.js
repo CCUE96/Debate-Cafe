@@ -7,7 +7,8 @@ const teamSchema = new Schema({
     },
     members:[{
         type:String,
-        required:true
+        required:true,
+        ref:'User'
     }],
     score:{
         type:Number,
