@@ -22,6 +22,11 @@ type User {
     debates: [Debate]
 }
 
+type Comment {
+    id: ID!
+    comment_text: String!
+    user: User!}
+
 type Query {
     debates: [Debate]
     debate(id: ID!): Debate

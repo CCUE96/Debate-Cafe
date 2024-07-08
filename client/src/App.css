@@ -1,42 +1,53 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  background-image: linear-gradient(rgba(251, 251, 251, 0.5), rgba(219, 219, 219, 0.5));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.pacifico {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.yanone {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.welcomeBtn {
+  font-size: 40px
+}
+.blinking-cursor2s::after {
+  content: '|';
+  animation: blink2s 2s step-end 1 forwards ; 
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.blinking-cursor ::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes blink2s {
+  25%, 100% {
+    opacity: 0;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  50% {
+    opacity: 1; 
+  }
 }

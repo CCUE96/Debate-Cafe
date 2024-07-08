@@ -1,6 +1,8 @@
-import VotingSection from "../components/votingSection"
-import CommentSection from "../components/commentsection"
 
+import VotingSection from "../components/debatepage/votingSection"
+import CommentSection from "../components/debatepage/commentsection"
+import PostSection from "../components/debatepage/commentpost"
+import AIChatModal from "../components/AIChatModal";
 
 export default function DebatePage() {
     
@@ -9,7 +11,10 @@ export default function DebatePage() {
         <>
         
         <VotingSection/>
+        <PostSection/>
+       
         <CommentSection/>
+        <AIChatModal />
         
         
         </>
