@@ -1,5 +1,5 @@
 const db = require("../config/connection");
-const { User, Team, Matchup } = require("../models");
+const { User, Team, Debate } = require("../models");
 const userSeeds = require("./userSeedData");
 const teamSeeds = require("./teamSeedData");
 // const matchupSeeds = require("./matchupSeedData");
@@ -7,7 +7,9 @@ const cleanDB = require("./cleanDB");
 
 db.once("open", async () => {
   try {
-    await cleanDB();
+    await cleanDB('User', 'users');
+
+    await cleanDB('Team','teams')
 
     await User.insertMany(userSeeds);
 
