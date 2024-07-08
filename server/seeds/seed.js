@@ -2,7 +2,7 @@ const db = require("../config/connection");
 const { User, Team, Matchup } = require("../models");
 const userSeeds = require("./userSeedData");
 const teamSeeds = require("./teamSeedData");
-const matchupSeeds = require("./matchupSeedData");
+// const matchupSeeds = require("./matchupSeedData");
 const cleanDB = require("./cleanDB");
 
 db.once("open", async () => {
@@ -13,7 +13,7 @@ db.once("open", async () => {
 
     await Team.insertMany(teamSeeds);
 
-    await Matchup.insertMany(matchupSeeds);
+    // await Matchup.insertMany(matchupSeeds);
 
     console.log("All seeds successfully inserted!");
     process.exit(0);

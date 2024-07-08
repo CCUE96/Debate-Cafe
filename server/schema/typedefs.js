@@ -3,9 +3,10 @@ type Team {
     id: ID!
     name: String!
     votes: Int
+    members:[User]
 }
 
-type Matchup {
+type Debate {
     id: ID!
     team1: Team!
     team2: Team!
@@ -17,7 +18,8 @@ type User {
     id: ID!
     username: String!
     email: String!
-    matchups: [Matchup]
+    password:String!
+    debates: [Debate]
 }
 
 type Comment {
@@ -26,8 +28,8 @@ type Comment {
     user: User!}
 
 type Query {
-    matchups: [Matchup]
-    matchup(id: ID!): Matchup
+    debates: [Debate]
+    debate(id: ID!): Debate
     teams:[Team]
     team(id: ID!) : Team
     users: [User]
@@ -35,9 +37,13 @@ type Query {
 }
 
 type Mutation {
-    createUser(username: String!, email: String!): User
+    createUser(username: String!, email: String!, password:String!): User
+    login(email:String!, password: String!): Auth
     updateUser(id: ID!, username: String, email: String): User
     deleteUser(id: ID!): User
+    addComment(matchupId:ID!,userId:ID!, commentText:String!):Comment
+    editComment(commentId:ID!,newCommentText:String!):comment
+
 }
 `;
 
