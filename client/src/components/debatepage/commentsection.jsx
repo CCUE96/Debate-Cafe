@@ -51,7 +51,9 @@ function CommentSection() {
     toggleReplyBox();
   };
   return (
-    < div style={{ padding: 14, marginLeft: '200px', marginRight: '200px' }} className="App">
+    <>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    < div style={{ padding: 14, marginLeft: '200px', marginRight: '200px', width: '60vw'}} className="App">
       <Typography variant="h4" gutterBottom><div className='pacifico'>Comments</div></Typography>
       <Paper style={{ padding: "40px 20px" }}>
         <Grid container wrap="nowrap" spacing={2}>
@@ -97,7 +99,55 @@ function CommentSection() {
         </Grid>
     </Paper>
       </div >
-      
+      </div>
+       {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+       < div style={{ padding: 14, marginLeft: '200px', marginRight: '200px', width: '60vw'}} className="App">
+         <Paper style={{ padding: "40px 20px" }}>
+           <Grid container wrap="nowrap" spacing={2}>
+             <Grid item>
+               <Avatar alt="Remy Sharp" src={imgLink} />
+             </Grid>
+             <Grid className="yanone" justifyContent="left" item xs zeroMinWidth>
+               <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>Michael Michael</div></Typography>
+               <Typography style={{ textAlign: "left" }}>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                 luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+                 Suspendisse congue vulputate lobortis. Pellentesque at interdum
+                 tortor. Quisque arcu quam, malesuada vel mauris et, posuere
+                 sagittis ipsum. Aliquam ultricies a ligula nec faucibus. In elit
+                 metus, efficitur lobortis nisi quis, molestie porttitor metus.
+                 Pellentesque et neque risus. Aliquam vulputate, mauris vitae
+                 tincidunt interdum, mauris mi vehicula urna, nec feugiat quam
+                 lectus vitae ex.{" "}
+               </Typography>
+               <Typography style={{ textAlign: "left", color: "gray" }}>
+                 posted 1 minute ago
+               </Typography>
+               <Button variant="outlined" style={{ marginTop: "10px" }} onClick={toggleReplyBox}>Reply</Button>
+             {showReplyBox && (
+               <>
+               <TextField
+                 label="Your Reply"
+                 variant="outlined"
+                 fullWidth
+                 multiline
+                 value={comment}
+                 onChange={(e)=> setComment(e.target.value)}
+                 rows={4}
+                 style={{ marginTop: "10px" }}
+                 
+               />
+               <Button onClick={handleSubmit} variant="contained" color="primary" sx={{marginBottom: '20px', marginTop: '10px'}} disabled={comment.length < 20}>
+           Post Reply
+         </Button>
+               </>
+             )}
+             </Grid>
+           </Grid>
+       </Paper>
+         </div >
+         </div> */}
+      </>
       )
 }
 

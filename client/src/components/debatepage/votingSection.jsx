@@ -43,15 +43,15 @@ export default function VotingSection() {
             
         }}>
             <Typography variant="h5" component="h2" gutterBottom>
-                Trump V Biden
+                <div className='yanone'>Trump v Biden</div>
             </Typography>
             <RadioGroup row name="debatePoll" value={selectedValue} onChange={handleChange} >
-                <FormControlLabel value="Trump" control={<Radio  disabled={showResults}/>} label="Trump" />
-                <FormControlLabel value="Biden" control={<Radio disabled={showResults}/>} label="Biden" />
+                <FormControlLabel value="Trump"  control={<Radio  disabled={showResults}/>} label={<div className='yanone'>Trump</div> } />
+                <FormControlLabel value="Biden" control={<Radio disabled={showResults}/>}  label={<div className='yanone'>Biden</div> }  />
             </RadioGroup>
            
             <Button variant="contained" color="primary" onClick={handleSubmit} disabled={selectedValue === ''}>
-                Submit Vote
+             Submit Vote
             </Button>
             {showResults && (
                 <>
