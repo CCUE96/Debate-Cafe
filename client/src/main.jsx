@@ -10,6 +10,7 @@ import NewsSearchPage from './pages/NewsSearchPage.jsx';
 import LoginPage from './pages/loginpage.jsx';
 import RegisterPage from './pages/registerpage.jsx';
 import AboutPage from './pages/aboutme.jsx';
+import Donations from './pages/Donations'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <AboutPage/>
+      },
+      {
+        path:'https://donate.stripe.com/test_9AQ1675Mn5L57fO144',
+        element: <Donations />
       }
     ]
   }
