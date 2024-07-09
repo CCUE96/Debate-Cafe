@@ -1,33 +1,30 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
-const replySchema = new Schema(
-    {
-        replyText: {
-            type: String,
-            required: true,
-            min_length: 1,
-            max_length: 250
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now
-        },
-        username: {
-            type: String,
-            required: true
-        }
-    },
-    {
-        toJSON: {
-            virtuals: true,
-        },
-        id: false
-    }
-);
-
-replySchema.virtual('replyCount').get(function () {
-    const formattedDate = this.createdAt.toDateString('en-US')
-    return formattedDate
+const replySchema = new Schema({
+  content: {
+    type: String,
+    required: true,
+    maxlength: 250
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  username: {
+    type: String,
+    required: true
+  }
+}, {
+  toJSON: {
+    virtuals: true,
+  },
+  id: false
 });
 
-module.exports = replySchema;
+replySchema.virtual('formattedDate').get(function () {
+  return this.createdAt.toDateString();
+});
+
+const Reply = model('Reply', replySchema);
+
+module.exports = Reply;
