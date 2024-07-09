@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const replySchema = new Schemac(
+const replySchema = new Schema(
     {
         replyText: {
             type: String,
