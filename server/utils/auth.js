@@ -1,4 +1,4 @@
-const { GraphQlError } = require('apollo-server-express');
+const { GraphQlError } = require('graphql');
 const jwt = require('jsonwebtoken');
 
 const secret = 'mysecretsshhh';
