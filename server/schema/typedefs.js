@@ -22,15 +22,15 @@ type User {
     debates: [Debate]
 }
 
-type Comment{
-id: ID!
-commentText:String!
-}
  
 type Auth {
     token: ID!
     user:User
   }
+type Comment {
+    id: ID!
+    comment_text: String!
+    user: User!}
 
 type Query {
     debates: [Debate]

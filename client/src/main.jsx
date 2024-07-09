@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage.jsx';
-import './index.css';
+// import './index.css';
 import App from './App.jsx';
 import Homepage from './pages/homepage.jsx';
 import DebatePage from './pages/debatespage.jsx';
 import NewsSearchPage from './pages/NewsSearchPage.jsx';
+import LoginPage from './pages/loginpage.jsx';
+import RegisterPage from './pages/registerpage.jsx';
+import AboutPage from './pages/aboutme.jsx';
+// import Donations from './pages/Donations'
 
 const router = createBrowserRouter([
   {
@@ -16,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Homepage />
+        element: <LoginPage />
       },
       {
         path: 'debates',
@@ -25,7 +29,23 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <NewsSearchPage />
-      }
+      },
+      {
+        path: 'home',
+        element: <Homepage/>
+      },
+      {
+        path: 'register',
+        element: <RegisterPage/>
+      },
+      {
+        path: 'about',
+        element: <AboutPage/>
+      },
+      // {
+      //   path:'https://donate.stripe.com/test_9AQ1675Mn5L57fO144',
+      //   element: <Donations />
+      // }
     ]
   }
 ]);
