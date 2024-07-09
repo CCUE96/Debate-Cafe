@@ -12,7 +12,8 @@ const teamSchema = new Schema ({
     }],
     score:{
         type:Number,
-        default:0
+        default:0,
+    },
     votes: {
         type: Number,
         default: 0
