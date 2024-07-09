@@ -22,7 +22,7 @@ const resolvers = {
     },
     teams: async () => {
       try {
-        const allTeams = await Team.find();
+        const allTeams = await Team.find().populate('members');
         return allTeams;
       } catch (error) {
         console.error("error fetching teams", error);

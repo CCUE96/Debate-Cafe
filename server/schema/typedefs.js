@@ -1,4 +1,4 @@
-const typeDefs =`
+const typeDefs = `
 type Team {
     id: ID!
     name: String!
@@ -22,6 +22,11 @@ type User {
     debates: [Debate]
 }
 
+ 
+type Auth {
+    token: ID!
+    user:User
+  }
 type Comment {
     id: ID!
     comment_text: String!
@@ -34,6 +39,7 @@ type Query {
     team(id: ID!) : Team
     users: [User]
     user(id : ID!): User
+    me:User
 }
 
 type Mutation {
@@ -42,7 +48,7 @@ type Mutation {
     updateUser(id: ID!, username: String, email: String): User
     deleteUser(id: ID!): User
     addComment(matchupId:ID!,userId:ID!, commentText:String!):Comment
-    editComment(commentId:ID!,newCommentText:String!):comment
+    editComment(commentId:ID!,newCommentText:String!):Comment
 
 }
 `;
