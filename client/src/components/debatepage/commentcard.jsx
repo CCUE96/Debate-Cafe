@@ -6,15 +6,15 @@ import Paper from '@mui/material/Paper';
 import { Typography, TextField } from '@mui/material';
 import { Button } from '@mui/material/'
 import ReplyCard from './replycard';
-// const mockProps = {imgLink: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" , fullName: 'Michael Michael', comment: "hello"}
 
-function CommentCard({comment}) {
-    console.log(comment)
-    const [showReplyBox, setShowReplyBox] = useState(false);
-    const [replyComment, setReplyComment] = useState("");
-    const [showReplies, setShowReplies] = useState(false)
 
-    
+function CommentCard({ comment }) {
+  console.log(comment)
+  const [showReplyBox, setShowReplyBox] = useState(false);
+  const [replyComment, setReplyComment] = useState("");
+  const [showReplies, setShowReplies] = useState(false)
+
+
   const toggleReplyBox = () => {
     setShowReplyBox(!showReplyBox);
   };
@@ -31,9 +31,9 @@ function CommentCard({comment}) {
     toggleReplyBox();
   };
 
-    return (
-        <>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  return (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         < div style={{ padding: 14, marginLeft: '200px', marginRight: '200px', width: '60vw' }} className="App">
           <Paper style={{ padding: "40px 20px" }}>
             <Grid container wrap="nowrap" spacing={2}>
@@ -43,8 +43,8 @@ function CommentCard({comment}) {
               <Grid className="yanone" justifyContent="left" item xs zeroMinWidth>
                 <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{comment.fullName}</div></Typography>
                 <Typography style={{ textAlign: "left" }}>
-                {comment.comment}
-                 
+                  {comment.comment}
+
                 </Typography>
                 <Typography style={{ textAlign: "left", color: "gray" }}>
                   posted 1 minute ago
@@ -69,17 +69,20 @@ function CommentCard({comment}) {
                     </Button>
                   </>
                 )}
-               
-                {showReplies && 
-                <ReplyCard />
+
+                {showReplies &&
+                  comment?.replies?.map(reply => {
+                    return <ReplyCard key={reply._id} reply={reply} />
+                  })
+
                 }
               </Grid>
             </Grid>
           </Paper>
         </div >
       </div>
-      </>
-    )
+    </>
+  )
 }
 
 export default CommentCard
