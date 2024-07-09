@@ -5,7 +5,7 @@ const secret = 'mysecretsshhh';
 const expiration = '2h';
 
 module.exports = {
-    AuthenticationError: new GraphQlError(`You ain't verified`, {
+    AuthenticationError: new AuthenticationError(`You ain't verified`, {
         extensions: {
             code: 'UNAUTHENTICATED'
         }
