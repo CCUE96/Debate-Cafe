@@ -1,38 +1,36 @@
-import decode from 'jwt-decode';
+const { GraphQLError } = require('graphql');
+const jwt = require('jsonwebtoken');
 
-class AuthService {
-    getProfile() {
-    return decode(this.getToken());
-}
+const secret = 'mysecretssshhhhhhh';
+const expiration = '2h';
 
-loggedIn() {
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
-}
+module.exports = {
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-isTokenExpired(token) {
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
+    }
+
+    if (!token) {
+      return req;
+    }
+
     try {
-        const decoded = decode(token);
-        if (decoded.exp < Date.now() / 1000) {
-            return true;
-        } else return false;
-    } catch (err) {
-        return false
-    }
-}
-    getToken() {
-        return localStorage.getItem('id_token');
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch {
+      throw new GraphQLError('Could not authenticate user.', {
+        extensions: {
+          code: 'UNAUTHENTICATED',
+        },
+      });
     }
 
-    login(idToken) {
-        localStorage.setItem('id_token', idToken);
-
-        window.location.assign('/')
-    }
-    logout() {
-        localStorage.removeItem('id_token');
-        window.location.assign('/')
-    }
-}
-
-export default new AuthService();
+    return req;
+  },
+  signToken: function ({ email, username, _id }) {
+    const payload = { email, username, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
+};
