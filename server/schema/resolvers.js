@@ -86,6 +86,25 @@ const resolvers = {
     //         throw new Error('Failed to fetch comment by ID');
     //     }
     // }
+    // Leaving this commented out for further review don't want to mess up Chris on the backend
+      // Reply: async () => {
+      //   try {
+      //     const allReplies = await Reply.find();
+      //     return allReplies;
+      //   } catch (error) {
+      //     console.error('Error fetching replies:', error);
+      //     throw new Error('Failed to fetch replies');
+      //   }
+      // },
+      // Reply: async (parent, { id }) => {
+      //   try {
+      //     const singleReply = await Reply.findById(id);
+      //     return singleReply;
+      //   } catch (error) {
+      //     console.error('Error fetching reply by ID:', error);
+      //     throw new Error('Failed to fetch reply by ID');
+      //   }
+      // },
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
@@ -162,8 +181,33 @@ const resolvers = {
     //     } catch (error) {
     //         console.error('Error deleting comment:', error);
     //         throw new Error('Failed to delete comment');
-    //     }
-    // }
+    //     },
+    // createReply: async (_, { replyData }) => {
+      //     try {
+      //         const newReply = new Reply(replyData);}
+      //         await newReply.save();
+      //        return newReply;
+      //     } catch (error) {
+      //         console.error('Error creating reply:', error);
+      //         throw new Error('Failed to create reply');
+      //     }
+      // updateReply: async (_, { id, replyData }) => {
+        //     try {
+        //         const updatedReply = await Reply.findByIdAndUpdate
+        //         return updatedReply;
+        //     } catch (error) {
+        //         console.error('Error updating reply:', error);
+        //         throw new Error('Failed to update reply');
+        //     }
+        // deleteReply: async (_, { id }) => {
+          //     try {
+          //         const deletedReply = await Reply.findByIdAndDelete(id);
+          //         return `Reply deleted`;
+          //     } catch (error) {
+          //         console.error('Error deleting reply:', error);
+          //         throw new Error('Failed to delete reply');
+          //     }
+          // },
   },
 };
 
