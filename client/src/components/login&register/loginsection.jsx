@@ -7,10 +7,11 @@ const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false)
+    const [username, setUsername] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle login logic here
-        console.log(email, password);
+        console.log(username, email, password);
     };
     
     const togglePassword = () => {
@@ -26,7 +27,18 @@ const LoginForm = () => {
                         Login
                     </Typography>
                     <form onSubmit={handleSubmit}>
-                        <Grid container spacing={3}>
+                    <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="Username"
+                                    variant="outlined"
+                                    fullWidth
+                                    required
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                            </Grid>
+                        
                             <Grid item xs={12}>
                                 <TextField
                                     label="Email"

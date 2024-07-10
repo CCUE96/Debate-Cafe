@@ -16,7 +16,7 @@ const WelcomeCard = () => {
    
 
     return (
-        <Container>
+        <Container >
             <Typography variant="h1" align="center">
                 <h1 className={"blinking-cursor2s pacifico"}>
                     <Typewriter text="Debate Cafe" speed={180} />

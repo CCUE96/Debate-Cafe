@@ -8,6 +8,9 @@
   height: 100vh;
   position: relative;
 }
+html {
+  background-color: #92C5FC;
+}
 
 .pacifico {
   font-family: "Pacifico", cursive;

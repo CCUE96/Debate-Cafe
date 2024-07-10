@@ -41,7 +41,7 @@ const commentSectionMock = [
 ]
 
 export default function DebatePage() {
-
+ 
 
   return (
     <>
