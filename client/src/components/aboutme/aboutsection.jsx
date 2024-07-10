@@ -7,7 +7,7 @@ function AboutMe() {
   return (
     <>
      <div style={{ textAlign: 'center', marginTop: '100px' }}> {/* Adjusted for centering and spacing */}
-<
+
       <h1 className='pacifico'>About the Team</h1>
 
     </div>
