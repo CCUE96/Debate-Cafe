@@ -5,16 +5,12 @@ import Container from '@mui/material/Container'
 import Introduction from './introduction';
 
 const GetStarted = () => {
+   
 
     const [showButton, setShowButton] = useState(false);
     const [showIntroduction, setShowIntroduction] = useState(false);
     const introductionRef = useRef(null);
     
-
-
-   
- 
-
 
     const handleGetStartedClick = () => {
         setShowIntroduction(true);
@@ -36,13 +32,13 @@ const GetStarted = () => {
 
     return (
 
-        <Container>
+        <Container style={{ maxWidth: '4000px',}}>
             {showButton && (
                 <Typography align='center' variant='h4' >
                     <Button onClick={handleGetStartedClick}> <p className={'yanone welcomeBtn'}>Click Here to Get Started</p></Button>
                 </Typography>
             )}
-            {showIntroduction && <div ref={introductionRef}><Introduction /></div>}
+            {showIntroduction &&<div style={{ paddingTop: '20px', paddingBottom: '20px' }}> {/* Adjust the value as needed */} <div ref={introductionRef} style={{ backgroundColor: '#0158A9', borderRadius: '30px'}}><Introduction /></div> </div>}
         </Container>
 
     )

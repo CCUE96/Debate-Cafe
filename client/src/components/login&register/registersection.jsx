@@ -4,6 +4,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
 const RegisterForm = () => {
+    const [username, setUsername] = useState('');
+    const [isUsernameValid, setIsUsernameValid] = useState(true)
     const [email, setEmail] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [password, setPassword] = useState('');
@@ -19,7 +21,11 @@ const RegisterForm = () => {
         // Handle login logic here
         console.log(email, password);
     };
-
+    const handleUsernameChange = (e) => {
+        const usernameInput = e.target.value;
+        setUsername(usernameInput);
+        setIsUsernameValid(usernameInput.length >= 3);
+    }
     const handleEmailChange = (e) => {
         const emailInput = e.target.value;
         setEmail(emailInput);
@@ -48,6 +54,19 @@ const RegisterForm = () => {
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                                <TextField
+                                    label="Username"
+                                    variant="outlined"
+                                    fullWidth
+                                    required
+                                    value={username}
+                                    onChange={handleUsernameChange}
+                                    error={!isUsernameValid}
+                                    helperText={!isUsernameValid ? "Please enter 3 or more characters" : ""}
+                                    
+                                />
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     label="Email"
@@ -116,7 +135,7 @@ const RegisterForm = () => {
                             <Grid container justifyContent="center" mt={2}>
                                 <Grid item>
                                     
-                                        <Button variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid}>
+                                        <Button variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !isUsernameValid || email ==='' || password === '' || confirmPassword === '' || username === ''}>
                                         <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}> Register </Link>
                                         </Button>
                                    
