@@ -1,4 +1,6 @@
 const { Team, Debate, User, Comment } = require("../models");
+const { GraphQLError } = require('graphql'); 
+const { signToken } = require('../utils/auth'); 
 
 const resolvers = {
   Query: {
@@ -31,7 +33,7 @@ const resolvers = {
     },
     team: async (parent, { id }) => {
       try {
-        const individualTeam = await Team.findById(id);
+        const individualTeam = await Team.findById(id).populate('members'); 
         return individualTeam;
       } catch (error) {
         console.error("error fetching team", error);
@@ -60,7 +62,9 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate("matchups");
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new GraphQLError("You need to be logged in!", { 
+        extensions: { code: 'UNAUTHENTICATED' },
+      });
     },
 
     // Leaving this commented out for now because don't want to mess you up Chris
@@ -113,22 +117,23 @@ const resolvers = {
       }
     },
     login: async (parent, { email, password }) => {
-        const user = await User.findOne({ email });
-  
-        if (!user) {
-          throw AuthenticationError;
-        }
-  
-        const correctPw = await user.isCorrectPassword(password);
-  
-        if (!correctPw) {
-          throw AuthenticationError;
-        }
-  
-        const token = signToken(user);
-  
-        return { token, user };
-      },
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new GraphQLError("Invalid credentials", { 
+          extensions: { code: 'UNAUTHENTICATED' },
+        });
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new GraphQLError("Invalid credentials", { 
+          extensions: { code: 'UNAUTHENTICATED' },
+        });
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
     updateUser: async (parent, { id, userData }) => {
       try {
         const updatedUser = await User.findByIdAndUpdate(id, userData, {
