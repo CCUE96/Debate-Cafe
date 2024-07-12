@@ -19,11 +19,11 @@ function PostSection() {
 
     return(
       <div style={{ display: 'flex',justifyContent: 'center', alignItems: 'center' }}>
-    <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px', width: '60vw'}}>
+    <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px' , width: '80vw',maxWidth: '1200px'}}>
         <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '50vw' },
+        '& .MuiTextField-root': { m: 1, width: '35vw' },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

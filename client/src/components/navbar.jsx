@@ -46,7 +46,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Debate Cafe
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -79,8 +79,20 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
+                
+                  <Button 
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                   
+                    sx={{ my: 0, color: 'black', display: 'block', width: "100%", height: '100%'}}
+                    component={Link}
+                    to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
+                  >
+                    {page}
+                  </Button>
+                 
+                  {/* <Typography textAlign="center">{page}</Typography> */}
                 </MenuItem>
               ))}
             </Menu>
@@ -102,7 +114,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Debate Cafe
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
