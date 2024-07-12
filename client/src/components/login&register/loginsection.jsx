@@ -4,14 +4,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
+   
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle login logic here
-        console.log(username, email, password);
+        console.log(username, password);
     };
     
     const togglePassword = () => {
@@ -39,16 +39,7 @@ const LoginForm = () => {
                                 />
                             </Grid>
                         
-                            <Grid item xs={12}>
-                                <TextField
-                                    label="Email"
-                                    variant="outlined"
-                                    fullWidth
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Grid>
+                           
                             <Grid item xs={12}>
                                 <TextField
                                     label="Password"
