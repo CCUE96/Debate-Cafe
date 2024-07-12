@@ -2,8 +2,8 @@ const typeDefs = `
 type Team {
     id: ID!
     name: String!
-    votes: Int
-    members:[User]
+    votes: [User]
+    Score: Int
 }
 
 type Debate {
@@ -11,7 +11,7 @@ type Debate {
     team1: Team!
     team2: Team!
     winner: Team
-    status: String!
+    status: String
 }
 
 type User {
@@ -27,10 +27,12 @@ type Auth {
     token: ID!
     user:User
   }
+    
 type Comment {
     id: ID!
     comment_text: String!
-    user: User!}
+    user: User!
+    }
 
 type Query {
     debates: [Debate]
@@ -49,6 +51,9 @@ type Mutation {
     deleteUser(id: ID!): User
     addComment(matchupId:ID!,userId:ID!, commentText:String!):Comment
     editComment(commentId:ID!,newCommentText:String!):Comment
+    createTeam(name:String!):Team
+    createDebate(team1: String!, team2: String!): Debate
+    votes(teamId:ID!, userId: ID!):Team!
 
 }
 `;

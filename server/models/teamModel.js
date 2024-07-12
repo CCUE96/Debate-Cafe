@@ -1,27 +1,22 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose");
 
-const teamSchema = new Schema ({
-    name: {
-        type: String,
-        required: true
+const teamSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+
+  votes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
+  ],
+});
+teamSchema.virtual("Score").get(()=> {
+  return this.votes.length
+}) 
 
-    members:[{
-        type:String,
-        required:true,
-    }],
-    score:{
-        type:Number,
-        default:0,
-    },
-    votes: {
-        type: Number,
-        default: 0
+const Team = model("Team", teamSchema);
 
-    }
-})
-
-const Team = model('Team', teamSchema);
-
-module.exports = Team
-
+module.exports = Team;
