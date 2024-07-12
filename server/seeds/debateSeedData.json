@@ -1,0 +1,26 @@
+[
+    {   "debateText": "This is fucking stupid",
+        "team1_votes": 13,
+        "team2_votes": 7
+    },
+    {   
+        "debateText": "This is fucking stupid",
+        "team1_votes": 10,
+        "team2_votes": 10
+    },
+    {   
+        "debateText": "This is fucking stupid",
+        "team1_votes": 15,
+        "team2_votes": 5
+    },
+    {   
+        "debateText": "This is fucking stupid",
+        "team1_votes": 12,
+        "team2_votes": 8
+    },
+    {   
+        "debateText": "This is fucking stupid",
+        "team1_votes": 11,
+        "team2_votes": 9
+    }
+]

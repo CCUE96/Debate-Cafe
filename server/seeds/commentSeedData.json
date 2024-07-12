@@ -1,0 +1,37 @@
+[
+    {
+      "createdAt": "2024-10-01T12:00:00Z",
+      "username": "",
+      "userId": "",
+      "commentText":"this is a comment",
+      "replies": [
+        {
+          "createdAt": "2024-10-01T12:30:00Z",
+          "username": "",
+          "userId": "", 
+          "content": "This is a reply."
+        }
+      ]
+    },
+    {
+      "createdAt": "2024-10-02T14:00:00Z",
+      "username": "",
+      "userId": "60d5ec49f1b2c72d88f8e8a3",
+      "commentText":"Another comment",
+      "replies": []
+    },
+    {
+      "createdAt": "2024-10-03T16:00:00Z",
+      "username": "",
+      "userId": "",
+      "commentText":"Oh wow another comment",
+      "replies": [
+        {
+          "createdAt": "2024-10-03T16:30:00Z",
+          "username": "",
+          "userId": "", 
+          "content": "Another reply."
+        }
+      ]
+    }
+  ]

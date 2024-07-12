@@ -1,15 +1,21 @@
 const { Schema, model } = require('mongoose')
+const Team = require('./teamModel')
 
 const debateSchema = new Schema({
+    debateText: {
+        type: String,
+        required: true
+    },
     team1: {
         type: Schema.Types.ObjectId,
         ref:'Team',
-        required: true
+        // had to comment out to be able to run seed properly will uncomment once we get it working correctly
+        // required: true
     },
     team2: {
         type: Schema.Types.ObjectId,
         ref:'Team',
-        required: true
+        // required: true
     },
     team1_votes: {
         type: Number,

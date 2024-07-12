@@ -15,7 +15,8 @@ db.once("open", async () => {
 
     await Team.insertMany(teamSeeds);
 
-    await Matchup.insertMany(debateSeeds);
+    // changed it from Matchups to Debates because we weren't calling it
+    await Debate.insertMany(debateSeeds);
 
     console.log("All seeds successfully inserted!");
     process.exit(0);

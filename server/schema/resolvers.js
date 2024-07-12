@@ -1,4 +1,4 @@
-const { Team, Debate, User, Comment } = require("../models");
+const { Team, Debate, User, Comment, Reply } = require("../models");
 const { GraphQLError } = require('graphql'); 
 const { signToken } = require('../utils/auth'); 
 
@@ -6,7 +6,8 @@ const resolvers = {
   Query: {
     debates: async (parent, args) => {
       try {
-        const allDebates = await Debate.find().populate("teams");
+        // Chris has to change it from teams to team1 and team2 because it wasn't loading the seed data on graphql without it
+        const allDebates = await Debate.find().populate("team1").populate('team2');
         return allDebates;
       } catch (error) {
         console.error("error fetching debates", error);
@@ -15,7 +16,7 @@ const resolvers = {
     },
     debate: async (parent, { id }) => {
       try {
-        const singleDebate = await Debate.findById(id).populate("teams");
+        const singleDebate = await Debate.findById(id).populate("team1").populate('team2');
         return singleDebate;
       } catch (error) {
         console.error("error fetching debate by id", error);
@@ -68,43 +69,43 @@ const resolvers = {
     },
 
     // Leaving this commented out for now because don't want to mess you up Chris
-    // Comments: async () => {
-    //     try {
-    //         const allComments = await Comment.find();
-    //         return allComments;
-    //     } catch (error) {
-    //         console.error('Error fetching comments:', error);
-    //         throw new Error('Failed to fetch comments');
-    //     }
-    // },
-    // Comments: async (parent, { id }) => {
-    //     try {
-    //         const singleComment = await Comment.findById(id);
-    //         return singleComment;
-    //     } catch (error) {
-    //         console.error('Error fetching comment by ID:', error);
-    //         throw new Error('Failed to fetch comment by ID');
-    //     }
-    // }
+    comment: async () => {
+        try {
+            const allComments = await Comment.find();
+            return allComments;
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            throw new Error('Failed to fetch comments');
+        }
+    },
+    comment: async (parent, { id }) => {
+        try {
+            const singleComment = await Comment.findById(id);
+            return singleComment;
+        } catch (error) {
+            console.error('Error fetching comment by ID:', error);
+            throw new Error('Failed to fetch comment by ID');
+        }
+    },
     // Leaving this commented out for further review don't want to mess up Chris on the backend
-      // Reply: async () => {
-      //   try {
-      //     const allReplies = await Reply.find();
-      //     return allReplies;
-      //   } catch (error) {
-      //     console.error('Error fetching replies:', error);
-      //     throw new Error('Failed to fetch replies');
-      //   }
-      // },
-      // Reply: async (parent, { id }) => {
-      //   try {
-      //     const singleReply = await Reply.findById(id);
-      //     return singleReply;
-      //   } catch (error) {
-      //     console.error('Error fetching reply by ID:', error);
-      //     throw new Error('Failed to fetch reply by ID');
-      //   }
-      // },
+      reply: async () => {
+        try {
+          const allReplies = await Reply.find();
+          return allReplies;
+        } catch (error) {
+          console.error('Error fetching replies:', error);
+          throw new Error('Failed to fetch replies');
+        }
+      },
+      reply: async (parent, { id }) => {
+        try {
+          const singleReply = await Reply.findById(id);
+          return singleReply;
+        } catch (error) {
+          console.error('Error fetching reply by ID:', error);
+          throw new Error('Failed to fetch reply by ID');
+        }
+      },
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
@@ -155,59 +156,63 @@ const resolvers = {
       }
     },
     // Leaving this commented out for now because don't want to mess you up Chris
-    // createComment: async (_, { commentData }) => {
-    //     try {
-    //         const newComment = new Comment(commentData);
-    //         await newComment.save();
-    //         return newComment;
-    //     } catch (error) {
-    //         console.error('Error creating comment:', error);
-    //         throw new Error('Failed to create comment');
-    //     }
-    // },
-    // updateComment: async (_, { id, commentData }) => {
-    //     try {
-    //         const updatedComment = await Comment.findByIdAndUpdate(id);
-    //         return updatedComment;
-    //     } catch (error) {
-    //         console.error('Error updating comment:', error);
-    //         throw new Error('Failed to update comment');
-    //     }
-    // },
-    // deleteComment: async (_, { id }) => {
-    //     try {
-    //         const deletedComment = await Comment.findByIdAndDelete(id);
-    //         return `Comment deleted`;
-    //     } catch (error) {
-    //         console.error('Error deleting comment:', error);
-    //         throw new Error('Failed to delete comment');
-    //     },
-    // createReply: async (_, { replyData }) => {
-      //     try {
-      //         const newReply = new Reply(replyData);}
-      //         await newReply.save();
-      //        return newReply;
-      //     } catch (error) {
-      //         console.error('Error creating reply:', error);
-      //         throw new Error('Failed to create reply');
-      //     }
-      // updateReply: async (_, { id, replyData }) => {
-        //     try {
-        //         const updatedReply = await Reply.findByIdAndUpdate
-        //         return updatedReply;
-        //     } catch (error) {
-        //         console.error('Error updating reply:', error);
-        //         throw new Error('Failed to update reply');
-        //     }
-        // deleteReply: async (_, { id }) => {
-          //     try {
-          //         const deletedReply = await Reply.findByIdAndDelete(id);
-          //         return `Reply deleted`;
-          //     } catch (error) {
-          //         console.error('Error deleting reply:', error);
-          //         throw new Error('Failed to delete reply');
-          //     }
-          // },
+    createComment: async (parent, { commentData }) => {
+        try {
+          console.log('Creating comment with data', commentData)
+            const newComment = new Comment(commentData);
+            await newComment.save();
+            return newComment;
+        } catch (error) {
+            console.error('Error creating comment:', error);
+            throw new Error('Failed to create comment');
+        }
+    },
+    updateComment: async (parent, { id, commentData }) => {
+        try {
+            const updatedComment = await Comment.findByIdAndUpdate(id);
+            return updatedComment;
+        } catch (error) {
+            console.error('Error updating comment:', error);
+            throw new Error('Failed to update comment');
+        }
+    },
+    deleteComment: async (parent, { id }) => {
+        try {
+            const deletedComment = await Comment.findByIdAndDelete(id);
+            return `Comment deleted`;
+        } catch (error) {
+            console.error('Error deleting comment:', error);
+            throw new Error('Failed to delete comment');
+        }
+    },
+    createReply: async (parent, { replyData }) => {
+          try {
+              const newReply = new Reply(replyData);
+              await newReply.save();
+             return newReply;
+          } catch (error) {
+              console.error('Error creating reply:', error);
+              throw new Error('Failed to create reply');
+          }
+    },
+      updateReply: async (parent, { id, replyData }) => {
+            try {
+                const updatedReply = await Reply.findByIdAndUpdate
+                return updatedReply;
+            } catch (error) {
+                console.error('Error updating reply:', error);
+                throw new Error('Failed to update reply');
+            }
+      },
+        deleteReply: async (parent, { id }) => {
+              try {
+                  const deletedReply = await Reply.findByIdAndDelete(id);
+                  return `Reply deleted`;
+              } catch (error) {
+                  console.error('Error deleting reply:', error);
+                  throw new Error('Failed to delete reply');
+              }
+          },
   },
 };
 

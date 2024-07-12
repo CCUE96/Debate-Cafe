@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const { replySchema } = require('./replyModel');
+const { SchemaMetaFieldDef } = require('graphql');
 
 const commentSchema = new Schema({
   createdAt: {
@@ -14,7 +15,14 @@ const commentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  replies: [replySchema],
+  commentText: {
+    type: String,
+    required: true,
+  }, 
+  replies: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Reply'
+  }],
 }, {
   toJSON: {
     virtuals: true,

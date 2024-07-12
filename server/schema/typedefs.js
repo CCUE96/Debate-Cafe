@@ -1,36 +1,46 @@
+// had to take out the ! from teams in debate going to add it back in once we figure out how to create a generated id for a team
+
 const typeDefs = `
 type Team {
-    id: ID!
+    _id: ID!
     name: String!
     votes: Int
     members:[User]
 }
 
 type Debate {
-    id: ID!
-    team1: Team!
-    team2: Team!
-    winner: Team
+    _id: ID!
+    team1: Team
+    team2: Team
+    winner: Team!
     status: String!
 }
 
 type User {
-    id: ID!
+    _id: ID!
     username: String!
     email: String!
     password:String!
     debates: [Debate]
 }
 
- 
 type Auth {
     token: ID!
     user:User
   }
+
 type Comment {
-    id: ID!
+    _id: ID!
     comment_text: String!
     user: User!}
+
+type Reply {
+    _id: ID!
+    reply_text: String!
+    user: User!
+    comment: Comment!
+
+}
 
 type Query {
     debates: [Debate]
@@ -40,6 +50,9 @@ type Query {
     users: [User]
     user(id : ID!): User
     me:User
+    comments:[Comment]
+    comment(id:ID!):Comment
+    reply:[Reply]
 }
 
 type Mutation {
@@ -47,9 +60,12 @@ type Mutation {
     login(email:String!, password: String!): Auth
     updateUser(id: ID!, username: String, email: String): User
     deleteUser(id: ID!): User
-    addComment(matchupId:ID!,userId:ID!, commentText:String!):Comment
-    editComment(commentId:ID!,newCommentText:String!):Comment
-
+    createComment(userId:ID!, commentText:String!):Comment
+    updateComment(commentId:ID!,newCommentText:String!):Comment
+    deleteComment(id: ID!): Comment
+    createReply(commentId: ID!, replyText: String!): Reply
+    updateReply(replyId: ID!, newReplyText: String!): Reply
+    deleteReply(id: ID!): Reply
 }
 `;
 
