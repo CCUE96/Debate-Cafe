@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     debates: async (parent, args) => {
       try {
-        const allDebates = await Debate.find().populate("teams");
+        const allDebates = await Debate.find().populate("Team");
         return allDebates;
       } catch (error) {
         console.error("error fetching debates", error);
@@ -15,7 +15,7 @@ const resolvers = {
     },
     debate: async (parent, { id }) => {
       try {
-        const singleDebate = await Debate.findById(id).populate("teams");
+        const singleDebate = await Debate.findById(id).populate("team1").populate("team2");
         return singleDebate;
       } catch (error) {
         console.error("error fetching debate by id", error);
@@ -24,7 +24,7 @@ const resolvers = {
     },
     teams: async () => {
       try {
-        const allTeams = await Team.find().populate('members');
+        const allTeams = await Team.find().populate('votes');
         return allTeams;
       } catch (error) {
         console.error("error fetching teams", error);
@@ -33,7 +33,7 @@ const resolvers = {
     },
     team: async (parent, { id }) => {
       try {
-        const individualTeam = await Team.findById(id).populate('members'); 
+        const individualTeam = await Team.findById(id).populate('votes'); 
         return individualTeam;
       } catch (error) {
         console.error("error fetching team", error);
@@ -154,6 +154,48 @@ const resolvers = {
         throw new Error("Failed to delete user");
       }
     },
+
+    createDebate: async (parent, { team1, team2 }) => {
+      try {
+        const newDebate = await Debate.create({ team1, team2 });
+        return newDebate;
+      } catch (error) {
+        console.error("Error creating debate:", error);
+        throw new Error("Failed to create debate");
+      }
+    },
+
+    votes: async (parent, { teamId, userId }) => {
+      try {
+        if (!teamId || !userId) {
+          throw new Error("Both teamId and userId are required");
+        }
+        const updatedTeam = await Team.findByIdAndUpdate(
+          teamId,
+          { $addToSet: { votes: userId } },
+          { new: true }
+        );
+    
+        if (!updatedTeam) {
+          throw new Error("Team not found");
+        }
+        return updatedTeam;
+      } catch (error) {
+        console.error("Error joining team:", error);
+        throw new Error("Failed to join team");
+      }
+    },
+
+    createTeam: async (parent,{ name }) =>{
+      try{
+        const newTeam = await Team.create({name})
+        return newTeam
+      }catch(error){
+        console.error("Error creating team:",error)
+        throw new Error("Failed to create Team")
+      }
+    }
+  
     // Leaving this commented out for now because don't want to mess you up Chris
     // createComment: async (_, { commentData }) => {
     //     try {

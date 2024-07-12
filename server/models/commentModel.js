@@ -6,6 +6,10 @@ const commentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  commentText:{
+    type: String,
+    required:true
+  },
   username: {
     type: String,
     required: true,
@@ -13,6 +17,10 @@ const commentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+  },
+  debateId:{
+    type:Schema.Types.ObjectId,
+    ref:"Debate"
   },
   replies: [replySchema],
 }, {
