@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Home', 'Debates', 'Search', 'About', 'Error', 'Login', 'Donations'];
+const pages = ['Home', 'Debates', 'Search', 'About', 'Error', 'Login', 'Logout', 'Donations'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {

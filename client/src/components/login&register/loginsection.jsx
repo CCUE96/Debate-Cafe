@@ -2,17 +2,30 @@ import { useState } from 'react';
 import { Paper, Grid, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { useMutation } from '@apollo/client';
+import Auth from '../../utils/auth';
+import { LOGIN_USER } from '../../utils/mutations';
 
 const LoginForm = () => {
    
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('');
-    const handleSubmit = (event) => {
+    const [login] = useMutation(LOGIN_USER);
+    const handleSubmit = async (event) => {
         event.preventDefault();
+     
         // Handle login logic here
+        const {data} = await login({
+            variables: {
+                username,
+                password
+            }
+        })
+        Auth.login(data.login.token)
         console.log(username, password);
     };
+   
     
     const togglePassword = () => {
         setShowPassword(!showPassword)
@@ -66,11 +79,11 @@ const LoginForm = () => {
                             </Grid>
                             <Grid container justifyContent="center" mt={2}>
                                 <Grid item>
-                                    <Link to='/'>
-                                        <Button variant="contained" color="primary">
+                                  
+                                        <Button type='submit' variant="contained" color="primary">
                                             Login
                                         </Button>
-                                    </Link>
+                                   
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container justifyContent="center" mt={2}>
