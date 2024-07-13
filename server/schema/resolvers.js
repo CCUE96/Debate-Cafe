@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     debates: async (parent, args) => {
       try {
-        const allDebates = await Debate.find().populate("Team");
+        const allDebates = await Debate.find().populate("team1").populate("team2");
         return allDebates;
       } catch (error) {
         console.error("error fetching debates", error);
@@ -60,51 +60,48 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate("matchups");
+        return User.findOne({ _id: context.user._id }).populate("debates");
       }
       throw new GraphQLError("You need to be logged in!", { 
         extensions: { code: 'UNAUTHENTICATED' },
       });
     },
-
-    // Leaving this commented out for now because don't want to mess you up Chris
-    // Comments: async () => {
-    //     try {
-    //         const allComments = await Comment.find();
-    //         return allComments;
-    //     } catch (error) {
-    //         console.error('Error fetching comments:', error);
-    //         throw new Error('Failed to fetch comments');
-    //     }
-    // },
-    // Comments: async (parent, { id }) => {
-    //     try {
-    //         const singleComment = await Comment.findById(id);
-    //         return singleComment;
-    //     } catch (error) {
-    //         console.error('Error fetching comment by ID:', error);
-    //         throw new Error('Failed to fetch comment by ID');
-    //     }
-    // }
-    // Leaving this commented out for further review don't want to mess up Chris on the backend
-      // Reply: async () => {
-      //   try {
-      //     const allReplies = await Reply.find();
-      //     return allReplies;
-      //   } catch (error) {
-      //     console.error('Error fetching replies:', error);
-      //     throw new Error('Failed to fetch replies');
-      //   }
-      // },
-      // Reply: async (parent, { id }) => {
-      //   try {
-      //     const singleReply = await Reply.findById(id);
-      //     return singleReply;
-      //   } catch (error) {
-      //     console.error('Error fetching reply by ID:', error);
-      //     throw new Error('Failed to fetch reply by ID');
-      //   }
-      // },
+    comments: async () => {
+        try {
+            const allComments = await Comment.find();
+            return allComments;
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            throw new Error('Failed to fetch comments');
+        }
+    },
+    comment: async (parent, { id }) => {
+        try {
+            const singleComment = await Comment.findById(id);
+            return singleComment;
+        } catch (error) {
+            console.error('Error fetching comment by ID:', error);
+            throw new Error('Failed to fetch comment by ID');
+        }
+    },
+    replies: async () => {
+        try {
+          const allReplies = await Reply.find();
+          return allReplies;
+        } catch (error) {
+          console.error('Error fetching replies:', error);
+          throw new Error('Failed to fetch replies');
+        }
+      },
+    reply: async (parent, { id }) => {
+        try {
+          const singleReply = await Reply.findById(id);
+          return singleReply;
+        } catch (error) {
+          console.error('Error fetching reply by ID:', error);
+          throw new Error('Failed to fetch reply by ID');
+        }
+      },
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
@@ -123,14 +120,12 @@ const resolvers = {
           extensions: { code: 'UNAUTHENTICATED' },
         });
       }
-
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw new GraphQLError("Invalid credentials", { 
           extensions: { code: 'UNAUTHENTICATED' },
         });
       }
-
       const token = signToken(user);
       return { token, user };
     },
@@ -154,17 +149,33 @@ const resolvers = {
         throw new Error("Failed to delete user");
       }
     },
-
-    createDebate: async (parent, { team1, team2 }) => {
+    createDebate: async (parent, { team1Name, team2Name }) => {
       try {
-        const newDebate = await Debate.create({ team1, team2 });
-        return newDebate;
+        const team1 = await Team.create({ name: team1Name });
+        const team2 = await Team.create({ name: team2Name });
+        const newDebate = await Debate.create({ team1: team1._id, team2: team2._id });
+        return {
+          id: newDebate._id,
+          team1: team1,
+          team2: team2
+        };
       } catch (error) {
         console.error("Error creating debate:", error);
         throw new Error("Failed to create debate");
       }
     },
-
+    deleteDebate: async (parent, { id }) => {
+      try {
+        const deletedDebate = await Debate.findByIdAndDelete(id);
+        if (!deletedDebate) {
+          throw new Error(`Debate with ID ${id} not found`);
+        }
+        return deletedDebate;
+      } catch (error) {
+        console.error("Error deleting debate:", error);
+        throw new Error("Failed to delete debate");
+      }
+    },
     votes: async (parent, { teamId, userId }) => {
       try {
         if (!teamId || !userId) {
@@ -185,72 +196,88 @@ const resolvers = {
         throw new Error("Failed to join team");
       }
     },
-
-    createTeam: async (parent,{ name }) =>{
-      try{
-        const newTeam = await Team.create({name})
-        return newTeam
-      }catch(error){
-        console.error("Error creating team:",error)
-        throw new Error("Failed to create Team")
+    createTeam: async (parent, { name }) => {
+      try {
+        const newTeam = await Team.create({ name });
+        return newTeam;
+      } catch (error) {
+        console.error("Error creating team:", error);
+        throw new Error("Failed to create team");
+      }
+    },
+    createComment: async (parent, { debateId, userId, commentText }, context, info) => {
+      try {
+        const newComment = new Comment({
+          debateId,
+          userId,
+          commentText
+        });
+        const savedComment = await newComment.save();
+        return savedComment;
+      } catch (error) {
+        console.error("Error creating comment:", error);
+        throw new Error("Failed to create comment");
+      }
+    },
+    updateComment: async (_, { id, commentText }) => {
+      try {
+        const updatedComment = await Comment.findByIdAndUpdate(
+          id,
+          { commentText }, 
+          { new: true } 
+        );
+        
+        if (!updatedComment) {
+          throw new Error(`Comment with ID ${id} not found`);
+        }
+        return updatedComment;
+      } catch (error) {
+        console.error("Error updating comment:", error);
+        throw new Error("Failed to update comment");
+      }
+    },
+    deleteComment: async (parent, { id }) => {
+      try {
+        await Comment.findByIdAndDelete(id);
+        return `Comment with ID ${id} was successfully deleted.`;
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+        throw new Error("Failed to delete comment");
+      }
+    },
+    createReply: async (parent, { id }) => {
+      try {
+        const newReply = new Comment({
+          debateId,
+          userId,
+          commentText
+        });
+        const savedReply = await newReply.save();
+        return savedReply;
+      } catch (error) {
+        console.error("Error creating reply:", error);
+        throw new Error("Failed to create reply");
+      }
+    },
+    updateReply: async (parent, { id, userData }) => {
+      try {
+        const updatedReply = await Comment.findByIdAndUpdate(id, userData);
+        return updatedReply;
+      } catch (error) {
+        console.error("Error updating reply:", error);
+        throw new Error("Failed to update reply");
+      }
+    },
+    deleteReply: async (parent, { id }) => {
+      try {
+        await Reply.findByIdAndDelete(id);
+        return `Reply with ID ${id} was successfully deleted.`;
+      } catch (error) {
+        console.error("Error deleting reply:", error);
+        throw new Error("Failed to delete reply");
       }
     }
-  
-    // Leaving this commented out for now because don't want to mess you up Chris
-    // createComment: async (_, { commentData }) => {
-    //     try {
-    //         const newComment = new Comment(commentData);
-    //         await newComment.save();
-    //         return newComment;
-    //     } catch (error) {
-    //         console.error('Error creating comment:', error);
-    //         throw new Error('Failed to create comment');
-    //     }
-    // },
-    // updateComment: async (_, { id, commentData }) => {
-    //     try {
-    //         const updatedComment = await Comment.findByIdAndUpdate(id);
-    //         return updatedComment;
-    //     } catch (error) {
-    //         console.error('Error updating comment:', error);
-    //         throw new Error('Failed to update comment');
-    //     }
-    // },
-    // deleteComment: async (_, { id }) => {
-    //     try {
-    //         const deletedComment = await Comment.findByIdAndDelete(id);
-    //         return `Comment deleted`;
-    //     } catch (error) {
-    //         console.error('Error deleting comment:', error);
-    //         throw new Error('Failed to delete comment');
-    //     },
-    // createReply: async (_, { replyData }) => {
-      //     try {
-      //         const newReply = new Reply(replyData);}
-      //         await newReply.save();
-      //        return newReply;
-      //     } catch (error) {
-      //         console.error('Error creating reply:', error);
-      //         throw new Error('Failed to create reply');
-      //     }
-      // updateReply: async (_, { id, replyData }) => {
-        //     try {
-        //         const updatedReply = await Reply.findByIdAndUpdate
-        //         return updatedReply;
-        //     } catch (error) {
-        //         console.error('Error updating reply:', error);
-        //         throw new Error('Failed to update reply');
-        //     }
-        // deleteReply: async (_, { id }) => {
-          //     try {
-          //         const deletedReply = await Reply.findByIdAndDelete(id);
-          //         return `Reply deleted`;
-          //     } catch (error) {
-          //         console.error('Error deleting reply:', error);
-          //         throw new Error('Failed to delete reply');
-          //     }
-          // },
-  },
+  }
 };
 
 module.exports = resolvers;
