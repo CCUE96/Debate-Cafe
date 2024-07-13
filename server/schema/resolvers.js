@@ -105,16 +105,19 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
+      console.log(username, email, password)
       try {
         const newUser = await User.create({ username, email, password });
-        return newUser;
+        const token = signToken(newUser);
+        return { token, newUser };
       } catch (error) {
         console.error("Error creating user:", error);
         throw new Error("Failed to create user");
       }
     },
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+    login: async (parent, { username, password }) => {
+      const user = await User.findOne({ username });
+      console.log(user)
       if (!user) {
         throw new GraphQLError("Invalid credentials", { 
           extensions: { code: 'UNAUTHENTICATED' },

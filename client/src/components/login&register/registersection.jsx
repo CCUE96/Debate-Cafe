@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Paper, Grid, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { CREATE_USER } from '../../utils/mutations';
+import { useMutation } from '@apollo/client';
+import Auth from '../../utils/auth';
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
@@ -15,10 +18,20 @@ const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/
+    const [createUser] = useMutation(CREATE_USER)
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle login logic here
+        // Handle login logic here\
+       
+       const {data} = await createUser({
+            variables: {
+                username,
+                email,
+                password
+            }
+        })
+        Auth.login(data.createUser.token)
         console.log(email, password);
     };
     const handleUsernameChange = (e) => {
@@ -82,7 +95,7 @@ const RegisterForm = () => {
                             <Grid item xs={12}>
                                 <TextField
                                     label="Password"
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={showPassword ? 'text' : 'password'} 
                                     variant="outlined"
                                     fullWidth
                                     required
@@ -135,8 +148,8 @@ const RegisterForm = () => {
                             <Grid container justifyContent="center" mt={2}>
                                 <Grid item>
                                     
-                                        <Button variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !isUsernameValid || email ==='' || password === '' || confirmPassword === '' || username === ''}>
-                                        <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}> Register </Link>
+                                        <Button type='submit' variant="contained" color="primary" disabled={!isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !isUsernameValid || email ==='' || password === '' || confirmPassword === '' || username === ''}>
+                                         Register 
                                         </Button>
                                    
                                 </Grid>
