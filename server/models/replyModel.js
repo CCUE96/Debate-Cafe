@@ -5,6 +5,10 @@ const replySchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  content: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -12,13 +16,11 @@ const replySchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   commentId: {
     type: Schema.Types.ObjectId,
     ref: 'Comment',
-  },
-  content: {
-    type: String,
     required: true,
   },
 }, {
@@ -28,5 +30,6 @@ const replySchema = new Schema({
   id: false,
 });
 
+const Reply = model('Reply', replySchema);
 
-module.exports = { replySchema };
+module.exports = { Reply, replySchema };

@@ -6,9 +6,9 @@ const commentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  commentText:{
+  commentText: {
     type: String,
-    required:true
+    required: true,
   },
   username: {
     type: String,
@@ -17,10 +17,12 @@ const commentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
-  debateId:{
-    type:Schema.Types.ObjectId,
-    ref:"Debate"
+  debateId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Debate',
+    required: true,
   },
   replies: [replySchema],
 }, {

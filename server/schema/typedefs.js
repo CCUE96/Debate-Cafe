@@ -22,39 +22,56 @@ type User {
     debates: [Debate]
 }
 
- 
 type Auth {
     token: ID!
-    user:User
-  }
-    
+    user: User
+}
+
 type Comment {
     id: ID!
-    comment_text: String!
+    commentText: String!
     user: User!
-    }
+}
+
+type Reply {
+    id: ID!
+    createdAt: String!
+    username: String!
+    userId: ID!
+    commentId: ID!
+    content: String!
+}
 
 type Query {
     debates: [Debate]
     debate(id: ID!): Debate
-    teams:[Team]
-    team(id: ID!) : Team
+    teams: [Team]
+    team(id: ID!): Team
     users: [User]
-    user(id : ID!): User
-    me:User
+    user(id: ID!): User
+    me: User
+    comment(id: ID!): Comment
+    comments: [Comment]
+    reply(id: ID!): Reply
+    replies: [Reply]
 }
 
 type Mutation {
-    createUser(username: String!, email: String!, password:String!): User
-    login(email:String!, password: String!): Auth
+    createUser(username: String!, email: String!, password: String!): User
+    login(email: String!, password: String!): Auth
     updateUser(id: ID!, username: String, email: String): User
     deleteUser(id: ID!): User
-    addComment(matchupId:ID!,userId:ID!, commentText:String!):Comment
-    editComment(commentId:ID!,newCommentText:String!):Comment
-    createTeam(name:String!):Team
-    createDebate(team1: String!, team2: String!): Debate
-    votes(teamId:ID!, userId: ID!):Team!
-
+    createComment(debateId: ID!, userId: ID!, commentText: String!): Comment
+    updateComment(id: ID!, commentText: String!): Comment
+    editComment(commentId: ID!, newCommentText: String!): Comment
+    deleteComment(id: ID!): Comment
+    createTeam(name: String!): Team
+    createDebate(team1Name: String!, team2Name: String!): Debate
+    votes(teamId: ID!, userId: ID!): Team!
+    createReply(username: String!, userId: ID!, commentId: ID!, content: String!): Reply
+    updateReply(id: ID!, content: String!): Reply
+    deleteReply(id: ID!): Reply
+    deleteDebate(id: ID!): Debate
 }
 `;
 
