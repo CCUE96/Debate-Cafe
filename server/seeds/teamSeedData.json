@@ -1,42 +1,42 @@
 [
   {
     "name": "Team Freddy",
-    "members": ["apples1234", "lovesToSpooge"]
+    "votes": ["apples1234", "lovesToSpooge"]
   },
   {
     "name": "Team Jason",
-    "members": ["bannanas12313", "penPinappleApplePen"]
+    "votes": ["bannanas12313", "penPinappleApplePen"]
   },
   {
     "name": "Sony",
-    "members": ["penPinappleApplePen"]
+    "votes": ["penPinappleApplePen"]
   },
   {
     "name": "Microsoft",
-    "members": ["jackass525", "apples1234"]
+    "votes": ["jackass525", "apples1234"]
   },
   {
     "name": "Kendrick Lamar",
-    "members": ["bnnannanna", "lovesToSpooge"]
+    "votes": ["bnnannanna", "lovesToSpooge"]
   },
   {
     "name": "Drake",
-    "members": ["Apllesadnsd"]
+    "votes": ["Apllesadnsd"]
   },
   {
     "name": "Modern Style",
-    "members": ["apples1234", "bannanas12313"]
+    "votes": ["apples1234", "bannanas12313"]
   },
   {
     "name": "Classic Style",
-    "members": ["lovesToSpooge", "jackass525"]
+    "votes": ["lovesToSpooge", "jackass525"]
   },
   {
     "name": "Team Trump",
-    "members": ["Apllesadnsd"]
+    "votes": ["Apllesadnsd"]
   },
   {
     "name": "Team Biden",
-    "members": ["bnnannanna"]
+    "votes": ["bnnannanna"]
   }
 ]

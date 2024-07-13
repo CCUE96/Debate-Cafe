@@ -1,0 +1,12 @@
+[
+    { "team1": "ObjectId('team1Id1')", "team2": "ObjectId('team2Id1')" },
+    { "team1": "ObjectId('team1Id2')", "team2": "ObjectId('team2Id2')" },
+    { "team1": "ObjectId('team1Id3')", "team2": "ObjectId('team2Id3')" },
+    { "team1": "ObjectId('team1Id4')", "team2": "ObjectId('team2Id4')" },
+    { "team1": "ObjectId('team1Id5')", "team2": "ObjectId('team2Id5')" },
+    { "team1": "ObjectId('team1Id6')", "team2": "ObjectId('team2Id6')" },
+    { "team1": "ObjectId('team1Id7')", "team2": "ObjectId('team2Id7')" },
+    { "team1": "ObjectId('team1Id8')", "team2": "ObjectId('team2Id8')" },
+    { "team1": "ObjectId('team1Id9')", "team2": "ObjectId('team2Id9')" },
+    { "team1": "ObjectId('team1Id10')", "team2": "ObjectId('team2Id10')" }
+  ]
