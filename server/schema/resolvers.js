@@ -225,11 +225,18 @@ const resolvers = {
           teamId,
           { $addToSet: { votes: userId } },
           { new: true }
-        );
+        ).populate('votes');
         if (!updatedTeam) {
           throw new Error("Team not found");
         }
-        return updatedTeam;
+        return {
+          id: updatedTeam._id,
+          name: updatedTeam.name,
+          votes: updatedTeam.votes.map(vote => ({
+            id: vote._id,
+            username: vote.username
+          }))
+        };
       } catch (error) {
         console.error("Error joining team:", error);
         throw new Error("Failed to join team");

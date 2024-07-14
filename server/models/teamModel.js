@@ -5,18 +5,21 @@ const teamSchema = new Schema({
     type: String,
     required: true,
   },
-  votes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  votes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }],
+}, {
+  toJSON: {
+    virtuals: true,
+  },
+  id: false,
 });
 
-teamSchema.virtual("Score").get(function() {
-  return this.votes.length;
+teamSchema.virtual('id').get(function() {
+  return this._id.toHexString();
 });
 
-const Team = model("Team", teamSchema);
+const Team = model('Team', teamSchema);
 
 module.exports = Team;
