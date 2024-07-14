@@ -16,20 +16,13 @@ const replySchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
   },
   commentId: {
     type: Schema.Types.ObjectId,
-    ref: 'Comment',
-    required: true,
+    ref: "Comment",
   },
-}, {
-  toJSON: {
-    virtuals: true,
-  },
-  id: false,
 });
 
 const Reply = model('Reply', replySchema);
 
-module.exports = { Reply, replySchema };
+module.exports = Reply;

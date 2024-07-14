@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const { replySchema } = require('./replyModel');
 
 const commentSchema = new Schema({
   createdAt: {
@@ -17,14 +16,15 @@ const commentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
   },
   debateId: {
     type: Schema.Types.ObjectId,
-    ref: 'Debate',
-    required: true,
+    ref: "Debate",
   },
-  replies: [replySchema],
+  replies: [{
+    type: Schema.Types.ObjectId,
+    ref: "Reply",
+  }],
 }, {
   toJSON: {
     virtuals: true,
