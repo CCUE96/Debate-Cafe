@@ -16,14 +16,16 @@ const commentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   debateId: {
     type: Schema.Types.ObjectId,
-    ref: "Debate",
+    ref: 'Debate',
+    required: true,
   },
   replies: [{
     type: Schema.Types.ObjectId,
-    ref: "Reply",
+    ref: 'Reply',
   }],
 }, {
   toJSON: {

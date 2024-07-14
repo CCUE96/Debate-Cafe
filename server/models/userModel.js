@@ -25,6 +25,18 @@ const userSchema = new Schema({
       ref: 'Debate',
     },
   ],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
+  replies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Reply',
+    },
+  ],
 });
 
 userSchema.pre('save', async function(next) {
@@ -32,6 +44,7 @@ userSchema.pre('save', async function(next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
+
   next();
 });
 

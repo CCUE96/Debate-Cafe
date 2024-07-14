@@ -12,6 +12,7 @@ type Debate {
     team2: Team!
     winner: Team
     status: String
+    comments: [Comment]
 }
 
 type User {

@@ -4,7 +4,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    debates: async () => {
+    debates: async (parent, args) => {
       try {
         const allDebates = await Debate.find().populate("team1").populate("team2");
         return allDebates;
@@ -15,7 +15,25 @@ const resolvers = {
     },
     debate: async (parent, { id }) => {
       try {
-        const singleDebate = await Debate.findById(id).populate("team1").populate("team2");
+        console.log(`Fetching debate with ID: ${id}`);
+        const singleDebate = await Debate.findById(id)
+          .populate("team1")
+          .populate("team2")
+          .populate({
+            path: 'comments',
+            populate: {
+              path: 'userId',
+              model: 'User'
+            }
+          });
+        
+        if (!singleDebate) {
+          console.log(`No debate found with ID: ${id}`); 
+          throw new Error(`No debate found with ID: ${id}`);
+        } else {
+          console.log(`Fetched debate: ${singleDebate}`);
+        }
+
         return singleDebate;
       } catch (error) {
         console.error("error fetching debate by id", error);
@@ -67,13 +85,13 @@ const resolvers = {
       });
     },
     comments: async () => {
-        try {
-            const allComments = await Comment.find().populate('user');
-            return allComments;
-        } catch (error) {
-            console.error('Error fetching comments:', error);
-            throw new Error('Failed to fetch comments');
-        }
+      try {
+        const allComments = await Comment.find().populate('userId');
+        return allComments;
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+        throw new Error("Failed to fetch comments");
+      }
     },
     comment: async (parent, { id }) => {
         try {
@@ -85,14 +103,14 @@ const resolvers = {
         }
     },
     replies: async () => {
-        try {
-          const allReplies = await Reply.find().populate('user');
-          return allReplies;
-        } catch (error) {
-          console.error('Error fetching replies:', error);
-          throw new Error('Failed to fetch replies');
-        }
-      },
+      try {
+        const allReplies = await Reply.find();
+        return allReplies;
+      } catch (error) {
+        console.error("Error fetching replies:", error);
+        throw new Error("Failed to fetch replies");
+      }
+    },
     reply: async (parent, { id }) => {
         try {
           const singleReply = await Reply.findById(id).populate('user');
@@ -210,17 +228,26 @@ const resolvers = {
       try {
         const user = await User.findById(userId);
         if (!user) {
-          throw new Error("User not found");
+          throw new Error('User not found');
         }
+
         const newComment = new Comment({
           debateId,
           userId,
-          commentText,
           username: user.username,
+          commentText
         });
         const savedComment = await newComment.save();
-        await savedComment.populate('user');
-        return savedComment;
+        await savedComment.populate('userId');
+        return {
+          id: savedComment._id,
+          commentText: savedComment.commentText,
+          user: {
+            id: user._id,
+            username: user.username
+          },
+          createdAt: savedComment.createdAt
+        };
       } catch (error) {
         console.error("Error creating comment:", error);
         throw new Error("Failed to create comment");
