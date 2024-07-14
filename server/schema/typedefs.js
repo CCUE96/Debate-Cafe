@@ -1,4 +1,10 @@
 const typeDefs = `
+input UserInput {
+  username: String
+  email: String
+  password: String
+}
+
 type Team {
     id: ID!
     name: String!
@@ -35,6 +41,7 @@ type Comment {
     commentText: String!
     user: User!
     createdAt: String!
+    replies: [Reply]
 }
 
 type Reply {
@@ -63,11 +70,10 @@ type Query {
 type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
-    updateUser(id: ID!, username: String, email: String): User
+    updateUser(id: ID!, userData: UserInput!): User
     deleteUser(id: ID!): User
     createComment(debateId: ID!, userId: ID!, commentText: String!): Comment
     updateComment(id: ID!, commentText: String!): Comment
-    editComment(commentId: ID!, newCommentText: String!): Comment
     deleteComment(id: ID!): Comment
     createTeam(name: String!): Team
     createDebate(team1Name: String!, team2Name: String!): Debate
