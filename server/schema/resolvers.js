@@ -16,7 +16,7 @@ const resolvers = {
     debate: async (parent, { id }) => {
       try {
         const singleDebate = await Debate.findById(id).populate("team1").populate("team2");
-        return singleDebate;
+        return singleDebate; 
       } catch (error) {
         console.error("error fetching debate by id", error);
         throw new Error("failed to fetch single debate by id");
