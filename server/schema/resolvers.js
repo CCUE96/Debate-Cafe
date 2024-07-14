@@ -6,38 +6,45 @@ const resolvers = {
   Query: {
     debates: async (parent, args) => {
       try {
-        const allDebates = await Debate.find().populate("team1").populate("team2");
+        const allDebates = await Debate.find().populate('team1').populate('team2');
         return allDebates;
       } catch (error) {
-        console.error("error fetching debates", error);
-        throw new Error("failed to fetch debates");
+        console.error('error fetching debates', error);
+        throw new Error('failed to fetch debates');
       }
     },
     debate: async (parent, { id }) => {
       try {
-        console.log(`Fetching debate with ID: ${id}`);
         const singleDebate = await Debate.findById(id)
-          .populate("team1")
-          .populate("team2")
+          .populate('team1')
+          .populate('team2')
           .populate({
             path: 'comments',
             populate: {
               path: 'userId',
-              model: 'User'
-            }
+              select: 'username',
+            },
           });
-        
-        if (!singleDebate) {
-          console.log(`No debate found with ID: ${id}`); 
-          throw new Error(`No debate found with ID: ${id}`);
-        } else {
-          console.log(`Fetched debate: ${singleDebate}`);
+        if (singleDebate.comments) {
+          singleDebate.comments = singleDebate.comments.filter(comment => comment.userId !== null);
         }
-
-        return singleDebate;
+        return {
+          id: singleDebate._id,
+          team1: singleDebate.team1,
+          team2: singleDebate.team2,
+          comments: singleDebate.comments.map(comment => ({
+            id: comment._id,
+            commentText: comment.commentText,
+            user: {
+              id: comment.userId._id,
+              username: comment.userId.username,
+            },
+            createdAt: comment.createdAt,
+          })),
+        };
       } catch (error) {
-        console.error("error fetching debate by id", error);
-        throw new Error("failed to fetch single debate by id");
+        console.error('error fetching debate by id', error);
+        throw new Error('failed to fetch single debate by id');
       }
     },
     teams: async () => {
@@ -230,23 +237,27 @@ const resolvers = {
         if (!user) {
           throw new Error('User not found');
         }
-
+    
         const newComment = new Comment({
           debateId,
           userId,
           username: user.username,
-          commentText
+          commentText,
+          createdAt: new Date(),
         });
+    
         const savedComment = await newComment.save();
-        await savedComment.populate('userId');
+    
+        await Debate.findByIdAndUpdate(debateId, { $push: { comments: savedComment._id } });
+    
         return {
           id: savedComment._id,
           commentText: savedComment.commentText,
           user: {
             id: user._id,
-            username: user.username
+            username: user.username,
           },
-          createdAt: savedComment.createdAt
+          createdAt: savedComment.createdAt,
         };
       } catch (error) {
         console.error("Error creating comment:", error);
@@ -257,14 +268,22 @@ const resolvers = {
       try {
         const updatedComment = await Comment.findByIdAndUpdate(
           id,
-          { commentText }, 
-          { new: true } 
-        );
-        
+          { commentText },
+          { new: true }
+        ).populate('userId', 'username'); 
+    
         if (!updatedComment) {
           throw new Error(`Comment with ID ${id} not found`);
         }
-        return updatedComment;
+        return {
+          id: updatedComment._id,
+          commentText: updatedComment.commentText,
+          createdAt: updatedComment.createdAt,
+          user: {
+            id: updatedComment.userId._id,
+            username: updatedComment.userId.username,
+          }
+        };
       } catch (error) {
         console.error("Error updating comment:", error);
         throw new Error("Failed to update comment");
@@ -272,15 +291,41 @@ const resolvers = {
     },
     deleteComment: async (parent, { id }) => {
       try {
-        await Comment.findByIdAndDelete(id);
-        return `Comment with ID ${id} was successfully deleted.`;
+        console.log(`Attempting to delete comment with ID: ${id}`);
+        const deletedComment = await Comment.findByIdAndDelete(id);
+        if (!deletedComment) {
+          throw new Error(`Comment with ID ${id} not found`);
+        }
+        console.log('Deleted comment:', deletedComment);
+        return {
+          id: deletedComment._id.toString(),
+          commentText: deletedComment.commentText,
+          createdAt: deletedComment.createdAt,
+          user: {
+            id: deletedComment.userId.toString(),
+            username: deletedComment.username,
+          },
+        };
       } catch (error) {
         console.error("Error deleting comment:", error);
         throw new Error("Failed to delete comment");
       }
-    },
+    },    
     createReply: async (parent, { username, userId, commentId, content }) => {
       try {
+        console.log("Finding user with ID:", userId);
+        const user = await User.findById(userId);
+        if (!user) {
+          throw new Error('User not found');
+        }
+    
+        console.log("Finding comment with ID:", commentId);
+        const comment = await Comment.findById(commentId);
+        if (!comment) {
+          throw new Error('Comment not found');
+        }
+    
+        console.log("Creating new reply");
         const newReply = new Reply({
           createdAt: new Date(),
           username,
@@ -288,14 +333,27 @@ const resolvers = {
           commentId,
           content
         });
+    
+        console.log("Saving new reply");
         const savedReply = await newReply.save();
-        await savedReply.populate('user');
-        return savedReply;
+    
+        console.log("Populating saved reply");
+        await savedReply.populate('userId commentId').execPopulate();
+    
+        console.log("Reply created successfully");
+        return {
+          id: savedReply._id,
+          createdAt: savedReply.createdAt,
+          username: savedReply.username,
+          content: savedReply.content,
+          userId: savedReply.userId,
+          commentId: savedReply.commentId
+        };
       } catch (error) {
         console.error("Error creating reply:", error);
         throw new Error("Failed to create reply");
       }
-    },
+    },    
     updateReply: async (parent, { id, content }) => {
       try {
         const updatedReply = await Reply.findByIdAndUpdate(id, { content }, { new: true });

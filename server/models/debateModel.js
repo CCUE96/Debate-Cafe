@@ -30,6 +30,10 @@ const debateSchema = new Schema({
   id: false,
 });
 
+debateSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
 const Debate = model('Debate', debateSchema);
 
 module.exports = Debate;
