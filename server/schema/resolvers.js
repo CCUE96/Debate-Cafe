@@ -1,10 +1,10 @@
-const { Team, Debate, User, Comment } = require("../models");
+const { Team, Debate, User, Comment, Reply } = require("../models");
 const { GraphQLError } = require('graphql'); 
 const { signToken } = require('../utils/auth'); 
 
 const resolvers = {
   Query: {
-    debates: async (parent, args) => {
+    debates: async () => {
       try {
         const allDebates = await Debate.find().populate("team1").populate("team2");
         return allDebates;
@@ -68,7 +68,7 @@ const resolvers = {
     },
     comments: async () => {
         try {
-            const allComments = await Comment.find();
+            const allComments = await Comment.find().populate('user');
             return allComments;
         } catch (error) {
             console.error('Error fetching comments:', error);
@@ -77,7 +77,7 @@ const resolvers = {
     },
     comment: async (parent, { id }) => {
         try {
-            const singleComment = await Comment.findById(id);
+            const singleComment = await Comment.findById(id).populate('user');
             return singleComment;
         } catch (error) {
             console.error('Error fetching comment by ID:', error);
@@ -86,7 +86,7 @@ const resolvers = {
     },
     replies: async () => {
         try {
-          const allReplies = await Reply.find();
+          const allReplies = await Reply.find().populate('user');
           return allReplies;
         } catch (error) {
           console.error('Error fetching replies:', error);
@@ -95,7 +95,7 @@ const resolvers = {
       },
     reply: async (parent, { id }) => {
         try {
-          const singleReply = await Reply.findById(id);
+          const singleReply = await Reply.findById(id).populate('user');
           return singleReply;
         } catch (error) {
           console.error('Error fetching reply by ID:', error);
@@ -105,11 +105,10 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
-      console.log(username, email, password)
       try {
         const newUser = await User.create({ username, email, password });
         const token = signToken(newUser);
-        return { token, newUser };
+        return { token, user: newUser };
       } catch (error) {
         console.error("Error creating user:", error);
         throw new Error("Failed to create user");
@@ -117,7 +116,6 @@ const resolvers = {
     },
     login: async (parent, { username, password }) => {
       const user = await User.findOne({ username });
-      console.log(user)
       if (!user) {
         throw new GraphQLError("Invalid credentials", { 
           extensions: { code: 'UNAUTHENTICATED' },
@@ -210,12 +208,18 @@ const resolvers = {
     },
     createComment: async (parent, { debateId, userId, commentText }, context, info) => {
       try {
+        const user = await User.findById(userId);
+        if (!user) {
+          throw new Error("User not found");
+        }
         const newComment = new Comment({
           debateId,
           userId,
-          commentText
+          commentText,
+          username: user.username,
         });
         const savedComment = await newComment.save();
+        await savedComment.populate('user');
         return savedComment;
       } catch (error) {
         console.error("Error creating comment:", error);
@@ -248,23 +252,29 @@ const resolvers = {
         throw new Error("Failed to delete comment");
       }
     },
-    createReply: async (parent, { id }) => {
+    createReply: async (parent, { username, userId, commentId, content }) => {
       try {
-        const newReply = new Comment({
-          debateId,
+        const newReply = new Reply({
+          createdAt: new Date(),
+          username,
           userId,
-          commentText
+          commentId,
+          content
         });
         const savedReply = await newReply.save();
+        await savedReply.populate('user');
         return savedReply;
       } catch (error) {
         console.error("Error creating reply:", error);
         throw new Error("Failed to create reply");
       }
     },
-    updateReply: async (parent, { id, userData }) => {
+    updateReply: async (parent, { id, content }) => {
       try {
-        const updatedReply = await Comment.findByIdAndUpdate(id, userData);
+        const updatedReply = await Reply.findByIdAndUpdate(id, { content }, { new: true });
+        if (!updatedReply) {
+          throw new Error(`Reply with ID ${id} not found`);
+        }
         return updatedReply;
       } catch (error) {
         console.error("Error updating reply:", error);

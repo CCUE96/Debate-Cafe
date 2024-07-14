@@ -8,15 +8,15 @@ const teamSchema = new Schema({
   votes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   ],
 });
 
-teamSchema.virtual('score').get(function() {
+teamSchema.virtual("Score").get(function() {
   return this.votes.length;
 });
 
-const Team = model('Team', teamSchema);
+const Team = model("Team", teamSchema);
 
 module.exports = Team;
