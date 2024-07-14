@@ -3,23 +3,31 @@ const { Schema, model } = require('mongoose');
 const debateSchema = new Schema({
   team1: {
     type: Schema.Types.ObjectId,
-    ref:'Team',
-    required: true
+    ref: 'Team',
+    required: true,
   },
   team2: {
     type: Schema.Types.ObjectId,
-    ref:'Team',
-    required: true
+    ref: 'Team',
+    required: true,
+  },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+  }],
+  status: {
+    type: String,
+    default: 'ongoing',
   },
   winner: {
     type: Schema.Types.ObjectId,
-    ref: 'Team'
+    ref: 'Team',
   },
-  status: {
-    type: String,
-    enum: ['ongoing', 'finished'],
-    default: 'ongoing'
-  }
+}, {
+  toJSON: {
+    virtuals: true,
+  },
+  id: false,
 });
 
 const Debate = model('Debate', debateSchema);
