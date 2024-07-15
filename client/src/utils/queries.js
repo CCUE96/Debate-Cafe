@@ -5,8 +5,7 @@ export const QUERY_TEAMS = gql`
     teams {
       id
       name
-      votes
-      members {
+      votes {
         id
         username
       }
@@ -19,8 +18,7 @@ export const QUERY_TEAM = gql`
     team(id: $teamId) {
       id
       name
-      votes
-      members {
+      votes {
         id
         username
       }
@@ -45,6 +43,23 @@ export const QUERY_DEBATES = gql`
         name
       }
       status
+      comments {
+        id
+        commentText
+        user {
+          id
+          username
+        }
+        createdAt
+        replies {
+          id
+          content
+          username
+          userId
+          commentId
+          createdAt
+        }
+      }
     }
   }
 `;
@@ -66,6 +81,23 @@ export const QUERY_DEBATE = gql`
         name
       }
       status
+      comments {
+        id
+        commentText
+        user {
+          id
+          username
+        }
+        createdAt
+        replies {
+          id
+          content
+          username
+          userId
+          commentId
+          createdAt
+        }
+      }
     }
   }
 `;
@@ -99,4 +131,3 @@ export const QUERY_ME = gql`
     }
   }
 `;
-
