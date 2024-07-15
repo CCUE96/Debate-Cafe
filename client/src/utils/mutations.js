@@ -41,8 +41,8 @@ export const DELETE_USER = gql`
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($matchupId: ID!, $userId: ID!, $commentText: String!) {
-    addComment(matchupId: $matchupId, userId: $userId, commentText: $commentText) {
+  mutation createComment($debateId: ID!, $userId: ID!, $commentText: String!) {
+    createComment(debateId: $debateId, userId: $userId, commentText: $commentText) {
       id
       comment_text
       user {
@@ -54,8 +54,8 @@ export const ADD_COMMENT = gql`
 `;
 
 export const EDIT_COMMENT = gql`
-  mutation editComment($commentId: ID!, $newCommentText: String!) {
-    editComment(commentId: $commentId, newCommentText: $newCommentText) {
+  mutation updateComment($commentId: ID!, $newCommentText: String!) {
+    updateComment(commentId: $commentId, newCommentText: $newCommentText) {
       id
       comment_text
       user {

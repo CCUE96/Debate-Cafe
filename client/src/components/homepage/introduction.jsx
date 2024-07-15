@@ -28,7 +28,7 @@ const Introduction = () => {
 
     return (
     
-        <div style={{
+        <div className='intro' style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -39,10 +39,10 @@ const Introduction = () => {
             borderRadius: '30px',
             display: 'flex',
             flexDirection: 'column'}}>
-            <Typography align='center' variant='h4'> <h1 className='pacifico'>Debate Cafe</h1></Typography>
-            <Typography align='center' variant='h5'> <h1 className='yanone'>On Debate Cafe you will find a list of hot debates, and new debates. You can interact with these debates by choosing a side, posting an opinion, or comment on someone else&apos;s post. Here are a few debates to check out!</h1></Typography>
+            <Typography align='center' variant='h4'> <h1 className='pacifico cafe'>Debate Cafe</h1></Typography>
+            <Typography align='center' variant='h5'> <h1 className='yanone intro'>On Debate Cafe you will find a list of hot debates, and new debates. You can interact with these debates by choosing a side, posting an opinion, or comment on someone else&apos;s post. Here are a few debates to check out!</h1></Typography>
             
-            <DebateList debates={debateProps}/>
+            <DebateList className='intro-list'debates={debateProps}/>
         </Container>
         </div>
       

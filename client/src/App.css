@@ -8,6 +8,7 @@
   height: 100vh;
   position: relative;
 }
+
 html {
   background-color: #92C5FC;
 }
@@ -17,18 +18,21 @@ html {
   font-weight: 400;
   font-style: normal;
 }
+
 .yanone {
   font-family: "Yanone Kaffeesatz", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
+
 .welcomeBtn {
   font-size: 40px
 }
+
 .blinking-cursor2s::after {
   content: '|';
-  animation: blink2s 2s step-end 1 forwards ; 
+  animation: blink2s 2s step-end 1 forwards;
 }
 
 .blinking-cursor ::after {
@@ -37,20 +41,237 @@ html {
 }
 
 @keyframes blink {
+
   from,
   to {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
 }
 
 @keyframes blink2s {
-  25%, 100% {
+
+  25%,
+  100% {
     opacity: 0;
   }
+
   50% {
-    opacity: 1; 
+    opacity: 1;
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 100pt;
+    font-style: normal;
+  }
+
+  element.style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 30pt;
+    font-style: normal;
+  }
+
+  .welcomeBtn {
+    font-size: 20pt;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-top: 45%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 20pt;
+    font-style: normal;
+  }
+
+  .welcomeBtn{
+    font-size: 17pt;
+  }
+
+  .intro {
+    font-size: 30pt;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-top: 25%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 30pt;
+    font-style: normal;
+  }
+
+  .welcomeBtn{
+    font-size: 14pt;
+  }
+
+  .intro {
+    font-size: 28pt;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-top: 40%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .intro {
+    font-size: 25pt;
+  }
+
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 25pt;
+    font-style: normal;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-top: 25%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .cafe {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 20pt;
+    font-style: normal;
+  }
+
+  .welcome {
+    font-size: 50pt;
+  }
+
+  .intro {
+    font-size: 25pt;
+  }
+
+  .css-12cg5sg-MuiContainer-root {
+    width: 100%;
+    margin-top: 85%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #EEF7FF;
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
 }
