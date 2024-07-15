@@ -20,6 +20,10 @@ function Navbar() {
     setAnchorElNav(null);
   };
 
+  const logout = () => {
+    localStorage.removeItem('id_token');
+    window.location.href = '/';
+  };
 
 
   return (
@@ -75,7 +79,7 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
+                <MenuItem key={page} onClick={page === 'Logout' ? logout : handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
                 
                   <Button 
                     key={page}
@@ -88,7 +92,7 @@ function Navbar() {
                     {page}
                   </Button>
                  
-                  {/* <Typography textAlign="center">{page}</Typography> */}
+                 
                 </MenuItem>
               ))}
             </Menu>
@@ -116,7 +120,7 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={ page === "Logout" ? logout : handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 component={Link}
                 to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}

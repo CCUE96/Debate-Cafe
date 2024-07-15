@@ -3,7 +3,7 @@ import VotingSection from "../components/debatepage/votingSection"
 import CommentSection from "../components/debatepage/commentsection"
 import PostSection from "../components/debatepage/commentpost"
 import AIChatModal from "../components/AIChatModal";
-
+import Auth from "../utils/auth"
 
 
 
@@ -41,6 +41,7 @@ const commentSectionMock = [
 ]
 
 export default function DebatePage() {
+  Auth.ensureAuthenticatedAccess();
  
 
   return (

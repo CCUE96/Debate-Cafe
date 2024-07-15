@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Paper, Grid, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
@@ -7,6 +7,12 @@ import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 
 const RegisterForm = () => {
+    
+   
+    useEffect(() => {
+        Auth.ensureGuestAccess();
+    },);
+
     const [username, setUsername] = useState('');
     const [isUsernameValid, setIsUsernameValid] = useState(true)
     const [email, setEmail] = useState('');

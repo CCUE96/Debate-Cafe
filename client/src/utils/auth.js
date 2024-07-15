@@ -22,6 +22,16 @@ class AuthService {
     // If token hasn't passed its expiration time, return `false`
     return false;
   }
+  ensureGuestAccess() {
+    if (this.loggedIn()) {
+      window.location.assign('/home'); // Redirect to home if already logged in
+    }
+  }
+  ensureAuthenticatedAccess() {
+    if (!this.loggedIn()) {
+      window.location.assign('/'); // Redirect to login page if not logged in
+    }
+  }
 
   getToken() {
     return localStorage.getItem('id_token');
