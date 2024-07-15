@@ -1,18 +1,27 @@
 import { useState } from 'react';
-
+// import { useMutation } from '@apollo/client'
+// import { ADD_COMMENT } from '../../utils/mutations'
 import {  Box, Button, TextField, Paper, Typography} from '@mui/material';
+// import Auth from '../../utils/auth'
 
 
 function PostSection() {
     const [comment, setComment] = useState('');
+
+    // const [createComment] = useMutation(ADD_COMMENT)
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log(comment); 
+        // const { data } = await createComment({ 
+        //   variables: {
+        //     debateId, userId: Auth.getProfile()._id, comment
+        //   }
+        // })
         setComment('');
       };
 

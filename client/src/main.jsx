@@ -25,23 +25,23 @@ const router = createBrowserRouter([
         element: <LoginPage />
       },
       {
-        path: 'debates',
+        path: '/debates',
         element: <DebatePage />
       },
       {
-        path: 'search',
+        path: '/search',
         element: <NewsSearchPage />
       },
       {
-        path: 'home',
+        path: '/home',
         element: <Homepage/>
       },
       {
-        path: 'register',
+        path: '/register',
         element: <RegisterPage/>
       },
       {
-        path: 'about',
+        path: '/about',
         element: <AboutPage/>
       },
       // {
