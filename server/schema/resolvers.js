@@ -6,8 +6,43 @@ const resolvers = {
   Query: {
     debates: async (parent, args) => {
       try {
-        const allDebates = await Debate.find().populate('team1').populate('team2');
-        return allDebates;
+        const allDebates = await Debate.find().populate('team1').populate('team2').populate({
+          path: 'comments',
+          populate: [
+            { path: 'userId', select: 'username' },
+            {
+              path: 'replies',
+              populate: {
+                path: 'userId',
+                select: 'username'
+              }
+            }
+          ],
+        });
+        return allDebates.map(debate => ({
+          id: debate._id.toString(),
+          team1: debate.team1,
+          team2: debate.team2,
+          winner: debate.winner,
+          status: debate.status,
+          comments: debate.comments.map(comment => ({
+            id: comment._id.toString(),
+            commentText: comment.commentText,
+            user: {
+              id: comment.userId._id.toString(),
+              username: comment.userId.username,
+            },
+            createdAt: comment.createdAt,
+            replies: comment.replies.map(reply => ({
+              id: reply._id.toString(),
+              content: reply.content,
+              createdAt: reply.createdAt,
+              username: reply.username,
+              userId: reply.userId._id.toString(), 
+              commentId: reply.commentId.toString(),
+            })),
+          })),
+        }));
       } catch (error) {
         console.error('error fetching debates', error);
         throw new Error('failed to fetch debates');
@@ -35,24 +70,24 @@ const resolvers = {
           singleDebate.comments = singleDebate.comments.filter(comment => comment.userId !== null);
         }
         return {
-          id: singleDebate._id,
+          id: singleDebate._id.toString(),
           team1: singleDebate.team1,
           team2: singleDebate.team2,
           comments: singleDebate.comments.map(comment => ({
-            id: comment._id,
+            id: comment._id.toString(),
             commentText: comment.commentText,
             user: {
-              id: comment.userId._id,
+              id: comment.userId._id.toString(),
               username: comment.userId.username,
             },
             createdAt: comment.createdAt,
             replies: comment.replies.map(reply => ({
-              id: reply._id,
+              id: reply._id.toString(),
               content: reply.content,
               createdAt: reply.createdAt,
               username: reply.username,
-              userId: reply.userId._id, 
-              commentId: reply.commentId,
+              userId: reply.userId._id.toString(),
+              commentId: reply.commentId.toString(),
             })),
           })),
         };
@@ -64,7 +99,14 @@ const resolvers = {
     teams: async () => {
       try {
         const allTeams = await Team.find().populate('votes');
-        return allTeams;
+        return allTeams.map(team => ({
+          id: team._id.toString(),
+          name: team.name,
+          votes: team.votes.map(vote => ({
+            id: vote._id.toString(),
+            username: vote.username,
+          })),
+        }));
       } catch (error) {
         console.error("error fetching teams", error);
         throw new Error("failed to fetch teams");
@@ -73,7 +115,14 @@ const resolvers = {
     team: async (parent, { id }) => {
       try {
         const individualTeam = await Team.findById(id).populate('votes'); 
-        return individualTeam;
+        return {
+          id: individualTeam._id.toString(),
+          name: individualTeam.name,
+          votes: individualTeam.votes.map(vote => ({
+            id: vote._id.toString(),
+            username: vote.username,
+          })),
+        };
       } catch (error) {
         console.error("error fetching team", error);
         throw new Error("failed to fetch single team by id");
@@ -82,7 +131,11 @@ const resolvers = {
     users: async () => {
       try {
         const allUsers = await User.find();
-        return allUsers;
+        return allUsers.map(user => ({
+          id: user._id.toString(),
+          username: user.username,
+          email: user.email,
+        }));
       } catch (error) {
         console.error("cannot fetch users", error);
         throw new Error("failed to fetch all users");
@@ -91,7 +144,11 @@ const resolvers = {
     user: async (parent, { id }) => {
       try {
         const individualUser = await User.findById(id);
-        return individualUser;
+        return {
+          id: individualUser._id.toString(),
+          username: individualUser.username,
+          email: individualUser.email,
+        };
       } catch (error) {
         console.error("error finding user", error);
         throw new Error("failed to fetch user by id");
@@ -99,7 +156,12 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate("debates");
+        const user = await User.findOne({ _id: context.user._id }).populate("debates");
+        return {
+          id: user._id.toString(),
+          username: user.username,
+          email: user.email,
+        };
       }
       throw new GraphQLError("You need to be logged in!", { 
         extensions: { code: 'UNAUTHENTICATED' },
@@ -108,39 +170,69 @@ const resolvers = {
     comments: async () => {
       try {
         const allComments = await Comment.find().populate('userId');
-        return allComments;
+        return allComments.map(comment => ({
+          id: comment._id.toString(),
+          commentText: comment.commentText,
+          user: {
+            id: comment.userId._id.toString(),
+            username: comment.userId.username,
+          },
+          createdAt: comment.createdAt,
+        }));
       } catch (error) {
         console.error("Error fetching comments:", error);
         throw new Error("Failed to fetch comments");
       }
     },
     comment: async (parent, { id }) => {
-        try {
-            const singleComment = await Comment.findById(id).populate('user');
-            return singleComment;
-        } catch (error) {
-            console.error('Error fetching comment by ID:', error);
-            throw new Error('Failed to fetch comment by ID');
-        }
+      try {
+        const singleComment = await Comment.findById(id).populate('userId');
+        return {
+          id: singleComment._id.toString(),
+          commentText: singleComment.commentText,
+          user: {
+            id: singleComment.userId._id.toString(),
+            username: singleComment.userId.username,
+          },
+          createdAt: singleComment.createdAt,
+        };
+      } catch (error) {
+        console.error('Error fetching comment by ID:', error);
+        throw new Error('Failed to fetch comment by ID');
+      }
     },
     replies: async () => {
       try {
         const allReplies = await Reply.find();
-        return allReplies;
+        return allReplies.map(reply => ({
+          id: reply._id.toString(),
+          content: reply.content,
+          createdAt: reply.createdAt,
+          username: reply.username,
+          userId: reply.userId._id.toString(),
+          commentId: reply.commentId.toString(),
+        }));
       } catch (error) {
         console.error("Error fetching replies:", error);
         throw new Error("Failed to fetch replies");
       }
     },
     reply: async (parent, { id }) => {
-        try {
-          const singleReply = await Reply.findById(id).populate('user');
-          return singleReply;
-        } catch (error) {
-          console.error('Error fetching reply by ID:', error);
-          throw new Error('Failed to fetch reply by ID');
-        }
-      },
+      try {
+        const singleReply = await Reply.findById(id).populate('userId');
+        return {
+          id: singleReply._id.toString(),
+          content: singleReply.content,
+          createdAt: singleReply.createdAt,
+          username: singleReply.username,
+          userId: singleReply.userId._id.toString(),
+          commentId: singleReply.commentId.toString(),
+        };
+      } catch (error) {
+        console.error('Error fetching reply by ID:', error);
+        throw new Error('Failed to fetch reply by ID');
+      }
+    },
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
@@ -174,7 +266,11 @@ const resolvers = {
         const updatedUser = await User.findByIdAndUpdate(id, userData, {
           new: true,
         });
-        return updatedUser;
+        return {
+          id: updatedUser._id.toString(),
+          username: updatedUser.username,
+          email: updatedUser.email,
+        };
       } catch (error) {
         console.error("Error updating user:", error);
         throw new Error("Failed to update user");
@@ -182,8 +278,12 @@ const resolvers = {
     },
     deleteUser: async (parent, { id }) => {
       try {
-        await User.findByIdAndDelete(id);
-        return `User with ID ${id} was successfully deleted.`;
+        const deletedUser = await User.findByIdAndDelete(id);
+        return {
+          id: deletedUser._id.toString(),
+          username: deletedUser.username,
+          email: deletedUser.email,
+        };
       } catch (error) {
         console.error("Error deleting user:", error);
         throw new Error("Failed to delete user");
@@ -195,9 +295,9 @@ const resolvers = {
         const team2 = await Team.create({ name: team2Name });
         const newDebate = await Debate.create({ team1: team1._id, team2: team2._id });
         return {
-          id: newDebate._id,
+          id: newDebate._id.toString(),
           team1: team1,
-          team2: team2
+          team2: team2,
         };
       } catch (error) {
         console.error("Error creating debate:", error);
@@ -210,7 +310,12 @@ const resolvers = {
         if (!deletedDebate) {
           throw new Error(`Debate with ID ${id} not found`);
         }
-        return deletedDebate;
+        return {
+          id: deletedDebate._id.toString(),
+          team1: deletedDebate.team1,
+          team2: deletedDebate.team2,
+          status: deletedDebate.status,
+        };
       } catch (error) {
         console.error("Error deleting debate:", error);
         throw new Error("Failed to delete debate");
@@ -230,12 +335,12 @@ const resolvers = {
           throw new Error("Team not found");
         }
         return {
-          id: updatedTeam._id,
+          id: updatedTeam._id.toString(),
           name: updatedTeam.name,
           votes: updatedTeam.votes.map(vote => ({
-            id: vote._id,
-            username: vote.username
-          }))
+            id: vote._id.toString(),
+            username: vote.username,
+          })),
         };
       } catch (error) {
         console.error("Error joining team:", error);
@@ -245,13 +350,16 @@ const resolvers = {
     createTeam: async (parent, { name }) => {
       try {
         const newTeam = await Team.create({ name });
-        return newTeam;
+        return {
+          id: newTeam._id.toString(),
+          name: newTeam.name,
+        };
       } catch (error) {
         console.error("Error creating team:", error);
         throw new Error("Failed to create team");
       }
     },
-    createComment: async (parent, { debateId, userId, commentText }, context, info) => {
+    createComment: async (parent, { debateId, userId, commentText }) => {
       try {
         const user = await User.findById(userId);
         if (!user) {
@@ -267,10 +375,10 @@ const resolvers = {
         const savedComment = await newComment.save();
         await Debate.findByIdAndUpdate(debateId, { $push: { comments: savedComment._id } });
         return {
-          id: savedComment._id,
+          id: savedComment._id.toString(),
           commentText: savedComment.commentText,
           user: {
-            id: user._id,
+            id: user._id.toString(),
             username: user.username,
           },
           createdAt: savedComment.createdAt,
@@ -291,11 +399,11 @@ const resolvers = {
           throw new Error(`Comment with ID ${id} not found`);
         }
         return {
-          id: updatedComment._id,
+          id: updatedComment._id.toString(),
           commentText: updatedComment.commentText,
           createdAt: updatedComment.createdAt,
           user: {
-            id: updatedComment.userId._id,
+            id: updatedComment.userId._id.toString(),
             username: updatedComment.userId.username,
           }
         };
@@ -317,7 +425,7 @@ const resolvers = {
           commentText: deletedComment.commentText,
           createdAt: deletedComment.createdAt,
           user: {
-            id: deletedComment.userId.toString(),
+            id: deletedComment.userId._id.toString(),
             username: deletedComment.username,
           },
         };
@@ -360,12 +468,12 @@ const resolvers = {
         console.log("Comment updated with new reply");
         console.log("Reply created successfully");
         return {
-          id: savedReply._id,
+          id: savedReply._id.toString(),
           createdAt: savedReply.createdAt,
           username: savedReply.username,
           content: savedReply.content,
-          userId: user._id,
-          commentId: comment._id
+          userId: user._id.toString(),
+          commentId: comment._id.toString()
         };
       } catch (error) {
         console.error("Error creating reply:", error);
@@ -378,7 +486,11 @@ const resolvers = {
         if (!updatedReply) {
           throw new Error(`Reply with ID ${id} not found`);
         }
-        return updatedReply;
+        return {
+          id: updatedReply._id.toString(),
+          content: updatedReply.content,
+          createdAt: updatedReply.createdAt,
+        };
       } catch (error) {
         console.error("Error updating reply:", error);
         throw new Error("Failed to update reply");
