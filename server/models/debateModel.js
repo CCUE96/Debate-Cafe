@@ -26,12 +26,13 @@ const debateSchema = new Schema({
 }, {
   toJSON: {
     virtuals: true,
+    transform: (doc, ret) => {
+      ret.id = ret._id.toString();
+      delete ret._id;
+      delete ret.__v;
+    },
   },
   id: false,
-});
-
-debateSchema.virtual('id').get(function() {
-  return this._id.toHexString();
 });
 
 const Debate = model('Debate', debateSchema);

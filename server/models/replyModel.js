@@ -21,6 +21,16 @@ const replySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Comment",
   },
+}, {
+  toJSON: {
+    virtuals: true,
+    transform: (doc, ret) => {
+      ret.id = ret._id.toString();
+      delete ret._id;
+      delete ret.__v;
+    },
+  },
+  id: false,
 });
 
 const Reply = model('Reply', replySchema);
