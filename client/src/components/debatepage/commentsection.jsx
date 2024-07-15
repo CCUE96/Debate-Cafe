@@ -16,7 +16,7 @@ function CommentSection({ comments }) {
         </Typography>
       </div>
 
-      <div style={{ width: '90vw', margin: 'auto' }}> {/* Add this wrapper with style */}
+      <div style={{ width: '90vw', margin: 'auto' }}> 
         {
           comments?.map(comment => {
             return <CommentCard key={comment._id} comment={comment} />
