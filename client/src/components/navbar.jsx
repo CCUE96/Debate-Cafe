@@ -3,12 +3,14 @@ import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, C
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
+import CreateModal from './debatepage/debatemodal';
 
-const pages = ['Home', 'Debates', 'Search', 'About', 'Login', 'Logout', 'Donations'];
+const pages = ['Home', 'Debates', 'News', 'About', 'Create', 'Login', 'Logout', 'Donations'];
 
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [modalOpen, setModalOpen] = React.useState(false)
 
 
   const handleOpenNavMenu = (event) => {
@@ -25,6 +27,13 @@ function Navbar() {
     window.location.href = '/';
   };
 
+  const handleOpenModal = () => {
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false)
+  }
 
   return (
     <AppBar position="static">
@@ -79,7 +88,7 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={page === 'Logout' ? logout : handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
+                <MenuItem key={page} onClick={page === 'Logout' ? logout : page === 'Create' ? handleOpenModal : handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
                 
                   <Button 
                     key={page}
@@ -87,7 +96,7 @@ function Navbar() {
                    
                     sx={{ my: 0, color: 'black', display: 'block', width: "100%", height: '100%'}}
                     component={Link}
-                    to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
+                    to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'News' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
                   >
                     {page}
                   </Button>
@@ -120,15 +129,16 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={ page === "Logout" ? logout : handleCloseNavMenu}
+                onClick={ page === "Logout" ? logout : page === 'Create' ? handleOpenModal : handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 component={Link}
-                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
+                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'News' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
               >
                 {page}
               </Button>
             ))}
           </Box>
+          <CreateModal open={modalOpen} handleClose={handleCloseModal} />
         </Toolbar>
       </Container>
     </AppBar>
