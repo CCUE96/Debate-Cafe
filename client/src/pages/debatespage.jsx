@@ -40,9 +40,10 @@ const commentSectionMock = [
   }
 ]
 
+
 export default function DebatePage() {
   Auth.ensureAuthenticatedAccess();
- 
+
 
   return (
     <>

@@ -12,7 +12,10 @@ const DebateList = ({debates}) => {
           <Box className="yanone" sx={{ mb: 2 }}>Hot Debates</Box>
           {
             debates?.map(debate => {
-              return <HotDebate key ={debate._id} debate = {debate}/>
+              return<> <HotDebate key ={debate._id} debate = {debate}/>
+              <br/>
+              </>
+              
             })
           }
         </Typography>
@@ -22,7 +25,11 @@ const DebateList = ({debates}) => {
           <Box className="yanone" sx={{ mb: 2 }}>New Debates</Box>
           {
             debates?.map(debate => {
-              return <NewDebate key ={debate._id} debate = {debate}/>
+
+              return <>
+              <NewDebate key ={debate._id} debate = {debate}/>
+              <br/>
+              </>
             })
           }
         </Typography>

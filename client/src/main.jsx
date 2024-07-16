@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <LoginPage />
       },
       {
-        path: '/debates',
+        path: '/debates/:id',
         element: <DebatePage />
       },
       {
