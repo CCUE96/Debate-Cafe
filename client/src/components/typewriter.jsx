@@ -13,7 +13,8 @@ const Typewriter = ({text, speed}) => {
             return() => clearTimeout(timeout)
         }
     }, [currIndex, speed, text])
-    
+
+
     return <span>{currText}</span>
 
 }
