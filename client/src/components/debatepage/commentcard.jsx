@@ -58,21 +58,21 @@ function CommentCard({ comment }) {
               
               </Grid>
               <Grid className="yanone" justifyContent="left" item xs zeroMinWidth>
-                <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{comment.user.username}</div></Typography>
-                <Typography style={{ textAlign: "left" }}>
+                <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone' style={{color: '#6F5B40'}}>{comment.user.username}</div></Typography>
+                <Typography style={{ textAlign: "left", color: '#6F5B40' }}>
                   {comment.commentText}
 
                 </Typography>
                
                 <Button variant="outlined" sx={{
-                   marginTop: "10px",
+                   marginTop: "10px", color: '#6F5B40',
                    '&:hover': {
                     backgroundColor: '#0068c4', 
                     color: 'white', 
                   },
                    
                    }} onClick={toggleReplyBox}>Reply</Button>
-                <Button variant="outlined" sx={{ marginTop: "10px", marginLeft: '10px',
+                <Button variant="outlined" sx={{ marginTop: "10px", marginLeft: '10px', color:'#6F5B40',
                    '&:hover': {
                     backgroundColor: '#0068c4', 
                     color: 'white', 

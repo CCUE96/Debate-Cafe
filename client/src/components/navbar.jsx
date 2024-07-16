@@ -6,12 +6,12 @@ import Auth from '../utils/auth'
 
 import CreateModal from './debatepage/debatemodal';
 
-let pages = ['Home', 'Debates', 'News', 'About', 'Create', 'Donations'];
+let pages = [];
 
 if (Auth.loggedIn()) {
-  pages = [...pages, 'Logout'];
+  pages = [...pages, 'Home', 'Create', 'News', 'About', 'Donations', 'Logout'];
 } else {
-  pages = [...pages, 'Login'];
+  pages = [...pages, 'About', 'Donations', 'Login'];
 }
 
 function Navbar() {
@@ -45,7 +45,7 @@ function Navbar() {
  
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{bgcolor: '#6F5B40'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 

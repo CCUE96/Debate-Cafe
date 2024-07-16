@@ -21,12 +21,12 @@ const Introduction = () => {
             height: '96vh'
         }}>
         <Container sx ={{ 
-            bgcolor: '#EEF7FF',
+            bgcolor: '#6F5B40',
             borderRadius: '30px',
             display: 'flex',
             flexDirection: 'column'}}>
-            <Typography align='center' variant='h4'> <h1 className='pacifico cafe'>Debate Cafe</h1></Typography>
-            <Typography align='center' variant='h5'> <h1 className='yanone intro'>On Debate Cafe you will find a list of hot debates, and new debates. You can interact with these debates by choosing a side, posting an opinion, or comment on someone else&apos;s post. Here are a few debates to check out!</h1></Typography>
+            <Typography align='center' variant='h4'> <h1 style={{color:'white'}}className='pacifico cafe'>Debate Cafe</h1></Typography>
+            <Typography align='center' variant='h5'> <h1 style={{color: 'black'}}className='yanone intro'>On Debate Cafe you will find a list of hot debates, and new debates. You can interact with these debates by choosing a side, posting an opinion, or comment on someone else&apos;s post. Here are a few debates to check out!</h1></Typography>
             
             <DebateList className='intro-list' debates={debates}/>
         </Container>

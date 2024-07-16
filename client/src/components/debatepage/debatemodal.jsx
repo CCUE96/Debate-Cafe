@@ -74,7 +74,7 @@ const CreateModal = ({ open, handleClose }) => {
 
 
           <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" >
               <span className='yanone'>Submit</span>
             </Button>
           </Box>
