@@ -32,7 +32,9 @@ function AboutMe() {
           <div>Chris</div>Cuellar
         </div>
       </Typography>
+      <a href='https://github.com/CCUE96?tab=repositories' target='_blank' rel='noopener noreferrer'>
       <img src="images/chris.jpg" alt="Chris Cuellar" style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '200px', objectFit: 'contain', marginTop: 10 }} />
+      </a>
       <Typography style={{ marginTop: 10 }}>Back End Lead</Typography>
     </Paper>
   </Grid>
@@ -43,7 +45,9 @@ function AboutMe() {
           <div>Michael</div>Freeman
         </div>
       </Typography>
+      <a href='https://github.com/mikef13x?tab=repositories' target='_blank' rel='noopener noreferrer'>
       <img src="images/mike.jpg" alt="Michael Freeman" style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '200px', objectFit: 'contain', marginTop: 10 }} />
+      </a>
       <Typography style={{ marginTop: 10 }}>React Lead</Typography>
     </Paper>
   </Grid>
@@ -54,7 +58,9 @@ function AboutMe() {
           <div>Spencer</div>Klinkowize
         </div>
       </Typography>
+      <a href='https://github.com/SpencerKlink?tab=repositories' target='_blank' rel='noopener noreferrer'>
       <img src="images/spencer.jpg" alt="Spencer Klinkowize" style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '200px', objectFit: 'contain', marginTop: 10 }} />
+      </a>
       <Typography style={{ marginTop: 10 }}>Team Lead</Typography>
     </Paper>
   </Grid>
@@ -65,7 +71,9 @@ function AboutMe() {
           <div>Wayne</div>Perry
         </div>
       </Typography>
+      <a href='https://github.com/TheQuestioningCake?tab=repositoriess' target='_blank' rel='noopener noreferrer'>
       <img src="images/wayne.jpg" alt="Wayne Perry" style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '200px', objectFit: 'contain', marginTop: 10 }} />
+      </a>
       <Typography style={{ marginTop: 10 }}>goat of all things</Typography>
     </Paper>
   </Grid>
