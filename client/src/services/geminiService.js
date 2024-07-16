@@ -1,15 +1,11 @@
 import axios from 'axios';
 
-export const fetchGeminiData = async (params) => {
+export const fetchGeminiData = async (endpoint, data) => {
   try {
-    const response = await axios.post('/api/proxy', params, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await axios.post(`/api/proxy`, data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching data from Gemini AI:', error);
+    console.error('Error fetching Gemini data:', error);
     return null;
   }
 };

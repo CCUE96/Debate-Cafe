@@ -28,6 +28,17 @@ const startApolloServer = async () => {
     context: authMiddleware
   }));
 
+  // GeminiAPI routes
+  app.get('/api/gemini', async (req, res) => {
+    try {
+      const response = await axios.get('https://api.gemini.com/v1/symbols');
+      res.json(response.data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+    }
+  });
+
   // Proxy endpoint to handle CORS issues
   app.post('/api/proxy', async (req, res) => {
     try {

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography, TextField, Modal, List, ListItem, ListItemText } from '@mui/material';
 import { fetchGeminiData } from '../services/geminiService';
 import ChatIcon from '@mui/icons-material/Chat';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -19,29 +20,36 @@ const AIChatModal = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [conversation, setConversation] = useState([]);
+  const [symbols, setSymbols] = useState([]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    if (open) {
+      const fetchSymbols = async () => {
+        try {
+          const response = await axios.get('/api/gemini');
+          if (Array.isArray(response.data)) {
+            setSymbols(response.data);
+          } else {
+            console.error('Unexpected response format:', response.data);
+          }
+        } catch (error) {
+          console.error('Error fetching symbols:', error);
+        }
+      };
+      fetchSymbols();
+    }
+  }, [open]);
+
   const handleGenerateContent = async () => {
     if (input.trim() === '') return;
 
-    const params = {
-      model: '', 
-      prompt: input,
-      max_tokens: 100 
-    };
-
-    console.log('Input:', input);
-    try {
-      const result = await fetchGeminiData(params);
-      console.log('Result:', result);
-      if (result) {
-        setConversation(prev => [...prev, { user: input, ai: result.choices[0].text.trim() }]);
-        setInput('');
-      }
-    } catch (error) {
-      console.error('Error generating content:', error);
+    const result = await fetchGeminiData('generate-content', { input });
+    if (result) {
+      setConversation(prev => [...prev, { user: input, ai: result.generatedContent }]);
+      setInput('');
     }
   };
 
@@ -51,7 +59,7 @@ const AIChatModal = () => {
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-title" aria-describedby="modal-description">
         <Box sx={style}>
           <Typography id="modal-title" variant="h6" component="h2">
-            AI Content Generator
+            AI Debate Buddy
           </Typography>
           <List sx={{ mt: 2 }}>
             {conversation.map((conv, index) => (
@@ -76,6 +84,16 @@ const AIChatModal = () => {
           >
             Ask
           </Button>
+          <Typography id="modal-title" variant="h6" component="h2" sx={{ mt: 2 }}>
+            Gemini Symbols
+          </Typography>
+          <List sx={{ mt: 2 }}>
+            {symbols.map((symbol, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={symbol} />
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Modal>
     </div>
