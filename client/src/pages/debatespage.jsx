@@ -1,12 +1,7 @@
-
 import VotingSection from "../components/debatepage/votingSection"
 import CommentSection from "../components/debatepage/commentsection"
 import PostSection from "../components/debatepage/commentpost"
 import AIChatModal from "../components/AIChatModal";
-
-
-
-
 
 const commentSectionMock = [
   {
@@ -22,7 +17,7 @@ const commentSectionMock = [
     }, {
       _id: '12sdf3',
       fullName: "spencer spencer",
-      message: 'this is terrible!',
+      message: 'this is mid.',
       relativeTime: "posted 2 hours ago"
     }]
   },
@@ -41,17 +36,12 @@ const commentSectionMock = [
 ]
 
 export default function DebatePage() {
- 
-
   return (
     <>
-
       <VotingSection />
       <PostSection />
       <CommentSection comments={commentSectionMock} />
       <AIChatModal />
-
-
     </>
   )
 }
