@@ -19,7 +19,7 @@ const GetStarted = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowButton(true)
-        }, 5000)
+        }, 3000)
         return () => clearTimeout(timer)
     }, [])
     
@@ -38,7 +38,7 @@ const GetStarted = () => {
                     <Button onClick={handleGetStartedClick}> <p className={'yanone welcomeBtn'}>Click Here to Get Started</p></Button>
                 </Typography>
             )}
-            {showIntroduction &&<div style={{ paddingTop: '20px', paddingBottom: '20px' }}> {/* Adjust the value as needed */} <div ref={introductionRef} style={{ backgroundColor: '#0158A9', borderRadius: '30px'}}><Introduction /></div> </div>}
+            {showIntroduction &&<div style={{ paddingTop: '20px', paddingBottom: '20px' }}>  <div ref={introductionRef} style={{ backgroundColor: '#0158A9', borderRadius: '30px'}}><Introduction /></div> </div>}
         </Container>
 
     )
