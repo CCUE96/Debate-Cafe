@@ -8,7 +8,7 @@ const NewDebate = ({debate}) => {
             <Box component="li" sx={{ mb: 2 }}> */}
             {console.log(debate._id)}
               <Link href={'/debates/' + debate._id} underline="hover"><span className='yanone'>{debate.team1.name}</span>
-              &nbsp;vs&nbsp;
+              <span className='yanone'>&nbsp;vs&nbsp;</span>
              <span className='yanone'>{debate.team2.name}</span></Link>
             {/* </Box>
           </Box> */}
