@@ -10,12 +10,12 @@ function ReplyCard({ reply }) {
     <>
       <hr />
       <Grid className="yanone" justifyContent="left" item xs zeroMinWidth>
-        <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{reply.fullName}</div></Typography>
+        <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{reply.username}</div></Typography>
         <Typography style={{ textAlign: "left" }}>
-          {reply.message}
+          {reply.content}
         </Typography>
-        <Typography style={{ textAlign: "left", color: "gray" }}>
-          {reply.relativeTime}    </Typography>
+        {/* <Typography style={{ textAlign: "left", color: "gray" }}>
+          {reply.relativeTime}    </Typography> */}
       </Grid>
     </>
   )

@@ -3,11 +3,22 @@
 
 import { Typography } from '@mui/material';
 import CommentCard from './commentcard';
-// import '../index.css'
+import { useQuery } from '@apollo/client';
+import { QUERY_DEBATE } from '../../utils/queries';
+import { useParams } from 'react-router-dom';
 
 
 
-function CommentSection({ comments }) {
+function CommentSection() {
+  const {id} = useParams();
+    const {data, loading} = useQuery(QUERY_DEBATE, {
+        variables: {
+          debateId: id
+        }
+    });
+
+    const comments = data?.debate.comments || []
+   
 
   return (
     <>
@@ -19,7 +30,7 @@ function CommentSection({ comments }) {
       <div style={{ width: '90vw', margin: 'auto' }}> 
         {
           comments?.map(comment => {
-            return <CommentCard key={comment._id} comment={comment} />
+            return <CommentCard key={comment.id} comment={comment} />
           })
         }
       </div> 

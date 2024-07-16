@@ -297,7 +297,7 @@ const resolvers = {
         const team2 = await Team.create({ name: team2Name });
         const newDebate = await Debate.create({ team1: team1._id, team2: team2._id });
         return {
-          id: newDebate._id.toString(),
+        _id: newDebate._id.toString(),
           team1: team1,
           team2: team2,
         };
