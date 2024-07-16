@@ -35,11 +35,11 @@ const GetStarted = () => {
 
         <Container style={{ maxWidth: '4000px',}}>
             {showButton && (
-                <Typography align='center' variant='h4' >
-                    <Button onClick={handleGetStartedClick}> <p className={'yanone welcomeBtn'}>Click Here to Get Started</p></Button>
-                </Typography>
+                <Typography align='center' variant='h4'>
+                    <Button onClick={handleGetStartedClick}> <p  style={{ color:'#6F5B40'}}className={'yanone welcomeBtn'}>Click Here to Get Started</p></Button>
+                </Typography> 
             )}
-            {showIntroduction &&<div style={{ paddingTop: '20px', paddingBottom: '20px' }}>  <div ref={introductionRef} style={{ backgroundColor: '#0158A9', borderRadius: '30px'}}><Introduction /></div> </div>}
+            {showIntroduction &&<div style={{ paddingTop: '20px', paddingBottom: '20px' }}>  <div ref={introductionRef} style={{ borderRadius: '30px'}}><Introduction /></div> </div>}
         </Container>
 
     )

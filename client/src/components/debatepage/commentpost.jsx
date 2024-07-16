@@ -36,7 +36,7 @@ function PostSection() {
 
     return(
       <div style={{ display: 'flex',justifyContent: 'center', alignItems: 'center' }}>
-    <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px' , width: '80vw',maxWidth: '1200px'}}>
+    {/* <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px' , width: '80vw',maxWidth: '1200px', bgcolor: '#6F5B40', color: 'white'}}> */}
         <Box
       component="form"
       sx={{
@@ -60,12 +60,21 @@ function PostSection() {
         variant="outlined"
         value={comment}
         onChange={handleCommentChange}
+        sx={{
+          backgroundColor: '#fff', // Set background color to white
+          '& .MuiOutlinedInput-root': {
+            
+            '&.Mui-focused fieldset': {
+              borderColor: 'white', // Optional: change border color when focused
+            },
+          },
+        }}
       />
       <Button onClick={handleSubmit} variant="contained" color="primary" sx={{marginBottom: '20px', marginTop: '10px'}} disabled={comment.length < 50}>
         Post Comment
       </Button>
     </Box>
-    </Paper>
+    {/* </Paper> */}
     </div>
     )
 }

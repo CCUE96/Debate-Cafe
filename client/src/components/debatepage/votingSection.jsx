@@ -30,7 +30,7 @@ export default function VotingSection() {
    
 
     return (
-        <Paper elevation={3} sx={{ p: 3, mt: 8, maxWidth: "sm", mx: "auto" }}>
+        <Paper elevation={3} sx={{ p: 3, mt: 8, maxWidth: "sm", mx: "auto", bgcolor: '#6F5B40', color: 'white' }}>
           <Container maxWidth="sm" sx={{
             display: 'flex', 
             flexDirection: 'column',
