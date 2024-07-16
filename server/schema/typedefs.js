@@ -13,7 +13,7 @@ type Team {
 }
 
 type Debate {
-    id: ID!
+    _id: ID!
     team1: Team!
     team2: Team!
     winner: Team
