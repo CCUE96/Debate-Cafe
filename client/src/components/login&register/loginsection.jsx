@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { Paper, Grid, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,12 @@ import Auth from '../../utils/auth';
 import { LOGIN_USER } from '../../utils/mutations';
 
 const LoginForm = () => {
-   
+    
+
+    useEffect(() => {
+        Auth.ensureGuestAccess();
+    },);
+
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('');

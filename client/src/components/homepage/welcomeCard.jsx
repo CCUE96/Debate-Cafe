@@ -10,7 +10,7 @@ const WelcomeCard = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowText(true)
-        }, 2250)
+        }, 1500)
         return () => clearTimeout(timer)
     }, []);
    
@@ -19,13 +19,13 @@ const WelcomeCard = () => {
         <Container >
             <Typography variant="h1" align="center">
                 <h1 className={"blinking-cursor2s pacifico cafe"}>
-                    <Typewriter className='cafe' text="Debate Cafe" speed={180} />
+                    <Typewriter className='cafe' text="Debate Cafe" speed={100} />
                 </h1>
             </Typography>
             <Typography variant='h2' align='center'>
                 {showText && (
                     <p className={'blinking-cursor2s yanone welcome'}>
-                        <Typewriter text="Welcome to Debate Cafe! " speed={70} />
+                        <Typewriter text="Welcome to Debate Cafe! " speed={40} />
                     </p>
                 )}
                 </Typography>

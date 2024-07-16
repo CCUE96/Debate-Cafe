@@ -29,7 +29,7 @@ export const QUERY_TEAM = gql`
 export const QUERY_DEBATES = gql`
   query getDebates {
     debates {
-      id
+      _id
       team1 {
         id
         name
@@ -67,7 +67,7 @@ export const QUERY_DEBATES = gql`
 export const QUERY_DEBATE = gql`
   query getDebate($debateId: ID!) {
     debate(id: $debateId) {
-      id
+      _id
       team1 {
         id
         name

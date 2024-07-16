@@ -6,13 +6,19 @@ import Paper from '@mui/material/Paper';
 import { Typography, TextField } from '@mui/material';
 import { Button } from '@mui/material/'
 import ReplyCard from './replycard';
-
+import { useMutation } from '@apollo/client';
+import { ADD_REPLY } from '../../utils/mutations';
+import { QUERY_DEBATE } from '../../utils/queries';
+import Auth from '../../utils/auth';
 
 function CommentCard({ comment }) {
-  console.log(comment)
+ 
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyComment, setReplyComment] = useState("");
   const [showReplies, setShowReplies] = useState(false)
+  const [createReply] = useMutation(ADD_REPLY, {
+    refetchQueries: [QUERY_DEBATE, "getDebate"]
+  });
 
 
   const toggleReplyBox = () => {
@@ -27,6 +33,17 @@ function CommentCard({ comment }) {
       alert("Please enter a comment.");
       return;
     }
+    
+    await createReply({
+      variables: {
+        commentId: comment.id,
+        content: replyComment,
+        userId:  Auth.getProfile().data._id,
+        username: Auth.getProfile().data.username
+
+
+      }
+    })
     setReplyComment("");
     toggleReplyBox();
   };
@@ -38,19 +55,29 @@ function CommentCard({ comment }) {
           <Paper style={{ padding: "40px 20px" }}>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
-                <Avatar alt={comment.fullName} src={comment.imgLink} />
+              
               </Grid>
               <Grid className="yanone" justifyContent="left" item xs zeroMinWidth>
-                <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{comment.fullName}</div></Typography>
+                <Typography variant="h6" component="h4" style={{ margin: 0, textAlign: "left" }}><div className='yanone'>{comment.user.username}</div></Typography>
                 <Typography style={{ textAlign: "left" }}>
-                  {comment.comment}
+                  {comment.commentText}
 
                 </Typography>
-                <Typography style={{ textAlign: "left", color: "gray" }}>
-                  posted 1 minute ago
-                </Typography>
-                <Button variant="outlined" style={{ marginTop: "10px" }} onClick={toggleReplyBox}>Reply</Button>
-                <Button variant="outlined" style={{ marginTop: "10px" }} onClick={toggleShowReplies}>Show Replies</Button>
+               
+                <Button variant="outlined" sx={{
+                   marginTop: "10px",
+                   '&:hover': {
+                    backgroundColor: '#0068c4', 
+                    color: 'white', 
+                  },
+                   
+                   }} onClick={toggleReplyBox}>Reply</Button>
+                <Button variant="outlined" sx={{ marginTop: "10px", marginLeft: '10px',
+                   '&:hover': {
+                    backgroundColor: '#0068c4', 
+                    color: 'white', 
+                  },
+                }} onClick={toggleShowReplies}>Show Replies</Button>
                 {showReplyBox && (
                   <>
                     <TextField
@@ -72,7 +99,7 @@ function CommentCard({ comment }) {
 
                 {showReplies &&
                   comment?.replies?.map(reply => {
-                    return <ReplyCard key={reply._id} reply={reply} />
+                    return <ReplyCard  key={reply._id} reply={reply} />
                   })
 
                 }

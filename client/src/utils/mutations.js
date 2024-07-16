@@ -141,7 +141,7 @@ export const CREATE_TEAM = gql`
 export const CREATE_DEBATE = gql`
   mutation createDebate($team1Name: String!, $team2Name: String!) {
     createDebate(team1Name: $team1Name, team2Name: $team2Name) {
-      id
+      _id
       team1 {
         id
         name

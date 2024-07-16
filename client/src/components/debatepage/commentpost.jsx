@@ -1,14 +1,21 @@
 import { useState } from 'react';
-// import { useMutation } from '@apollo/client'
-// import { ADD_COMMENT } from '../../utils/mutations'
+import { useMutation } from '@apollo/client'
+import { ADD_COMMENT } from '../../utils/mutations'
 import {  Box, Button, TextField, Paper, Typography} from '@mui/material';
-// import Auth from '../../utils/auth'
+import {  useParams } from 'react-router-dom'
+import Auth from '../../utils/auth'
+import { QUERY_DEBATE } from '../../utils/queries';
 
 
 function PostSection() {
     const [comment, setComment] = useState('');
 
-    // const [createComment] = useMutation(ADD_COMMENT)
+    const [createComment] = useMutation(ADD_COMMENT, {
+      refetchQueries: [QUERY_DEBATE, "getDebate"]
+
+    })
+    const {id} = useParams()
+    
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -17,11 +24,12 @@ function PostSection() {
 
     const handleSubmit = async () => {
         console.log(comment); 
-        // const { data } = await createComment({ 
-        //   variables: {
-        //     debateId, userId: Auth.getProfile()._id, comment
-        //   }
-        // })
+        console.log(Auth.getProfile())
+        const { data } = await createComment({ 
+          variables: {
+            debateId: id, userId: Auth.getProfile().data._id, commentText: comment
+          }
+        })
         setComment('');
       };
 

@@ -20,7 +20,8 @@ const resolvers = {
           ],
         });
         return allDebates.map(debate => ({
-          id: debate._id.toString(),
+          // id: debate._id.toString(),
+          _id: debate._id.toString(),
           team1: debate.team1,
           team2: debate.team2,
           winner: debate.winner,
@@ -50,7 +51,7 @@ const resolvers = {
     },
     debate: async (parent, { id }) => {
       try {
-        const singleDebate = await Debate.findById(id)
+        const singleDebate = await Debate.findOne({_id:id})
           .populate('team1')
           .populate('team2')
           .populate({
@@ -70,7 +71,8 @@ const resolvers = {
           singleDebate.comments = singleDebate.comments.filter(comment => comment.userId !== null);
         }
         return {
-          id: singleDebate._id.toString(),
+          // id: singleDebate._id.toString(),
+          _id: singleDebate._id.toString(),
           team1: singleDebate.team1,
           team2: singleDebate.team2,
           comments: singleDebate.comments.map(comment => ({
@@ -295,7 +297,7 @@ const resolvers = {
         const team2 = await Team.create({ name: team2Name });
         const newDebate = await Debate.create({ team1: team1._id, team2: team2._id });
         return {
-          id: newDebate._id.toString(),
+        _id: newDebate._id.toString(),
           team1: team1,
           team2: team2,
         };

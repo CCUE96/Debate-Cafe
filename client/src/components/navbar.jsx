@@ -2,13 +2,21 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+import Auth from '../utils/auth'
 
-const pages = ['Home', 'Debates', 'Search', 'About', 'Login', 'Logout', 'Donations'];
+import CreateModal from './debatepage/debatemodal';
 
+let pages = ['Home', 'Debates', 'News', 'About', 'Create', 'Donations'];
+
+if (Auth.loggedIn()) {
+  pages = [...pages, 'Logout'];
+} else {
+  pages = [...pages, 'Login'];
+}
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [modalOpen, setModalOpen] = React.useState(false)
 
 
   const handleOpenNavMenu = (event) => {
@@ -20,13 +28,27 @@ function Navbar() {
     setAnchorElNav(null);
   };
 
+  const logout = () => {
+    localStorage.removeItem('id_token');
+    window.location.href = '/';
+  };
 
+  const handleOpenModal = () => {
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false)
+
+  }
+
+ 
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
           <Typography
             variant="h6"
             noWrap
@@ -42,7 +64,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            Debate Cafe
+            <span className='pacifico'>Debate Cafe</span>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -74,26 +96,30 @@ function Navbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
-                
-                  <Button 
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                   
-                    sx={{ my: 0, color: 'black', display: 'block', width: "100%", height: '100%'}}
-                    component={Link}
-                    to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
-                  >
-                    {page}
-                  </Button>
+              
+             
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={page === 'Logout' ? logout : page === 'Create' ? handleOpenModal : handleCloseNavMenu} sx={{ padding: 0, width: '100%' }}>
                  
-                  {/* <Typography textAlign="center">{page}</Typography> */}
-                </MenuItem>
-              ))}
+                
+
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+
+                      sx={{ my: 0, color: 'black', display: 'block', width: "100%", height: '100%' }}
+                      component={Link}
+                      to={page === 'Debates' ? '/home' : page === 'Home' ? '/home' : page === 'News' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
+                    >
+                      {page}
+                    </Button>
+
+
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
           <Typography
             variant="h5"
             noWrap
@@ -110,21 +136,22 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            Debate Cafe
+            <span className='pacifico'>Debate Cafe</span>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={page === "Logout" ? logout : page === 'Create' ? handleOpenModal : handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 component={Link}
-                to={page === 'Debates' ? '/debates' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'Search' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
+                to={page === 'Debates' ? '/home' : page === 'Home' ? '/home' : page === 'Error' ? '/error' : page === 'News' ? '/search' : page === 'Login' ? '/' : page === 'About' ? '/about' : page === 'Donations' ? 'https://donate.stripe.com/test_9AQ1675Mn5L57fO144' : '#'}
               >
                 {page}
               </Button>
             ))}
           </Box>
+          <CreateModal open={modalOpen} handleClose={handleCloseModal} />
         </Toolbar>
       </Container>
     </AppBar>
