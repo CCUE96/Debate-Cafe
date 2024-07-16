@@ -14,6 +14,7 @@ const GetStarted = () => {
 
     const handleGetStartedClick = () => {
         setShowIntroduction(true);
+        setShowButton(false)
     };
 
     useEffect(() => {
