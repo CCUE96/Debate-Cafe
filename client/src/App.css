@@ -99,19 +99,6 @@ html {
     flex-direction: column;
   }
 }
-  /* .aboutMe {
-    padding-left:-50px;
-    padding-right:-50px;
-  }
-} */
-
-@media screen and (max-width: 820px) {
-  /* .aboutMe{
-    padding-left: -50px;
-    padding-right: -50px;
-  } */
-
-}
 
 @media screen and (max-width: 540px) {
   .cafe {
@@ -152,6 +139,10 @@ html {
     font-weight: 400;
     font-size: 20pt;
     font-style: normal;
+  }
+
+  .topic {
+    font-size: 20pt;
   }
 
   .welcomeBtn{
@@ -259,6 +250,14 @@ html {
     font-weight: 400;
     font-size: 20pt;
     font-style: normal;
+  }
+
+  .debateTitle{
+    font-size: 20pt;
+  }
+
+  .topic {
+    font-size:18pt;
   }
 
   .welcome {

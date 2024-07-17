@@ -9,7 +9,7 @@ const DebateList = ({debates}) => {
     <Grid container spacing={2}>
       <Grid item xs={6}>
         <Typography align='center' variant='h4'>
-          <Box className="yanone" sx={{ mb: 2, color: 'black'}}>Hot Debates:</Box>
+          <Box className="yanone debateTitle" sx={{ mb: 2, color: 'black'}}>Hot Debates:</Box>
           {
             debates?.map(debate => {
               return<> <HotDebate key ={debate._id} debate = {debate}/>
@@ -22,7 +22,7 @@ const DebateList = ({debates}) => {
       </Grid>
       <Grid item xs={6}>
         <Typography align='center' variant='h4'>
-          <Box className="yanone" sx={{ mb: 2, color: 'black'}}>New Debates:</Box>
+          <Box className="yanone debateTitle" sx={{ mb: 2, color: 'black'}}>New Debates:</Box>
           {
             debates?.map(debate => {
 
