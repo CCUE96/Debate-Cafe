@@ -19,7 +19,9 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
-  app.use(cors());
+  app.use(cors({
+    origin: ['http://localhost:3000', 'https://your-render-url.com'],
+  }));
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
@@ -40,14 +42,14 @@ const startApolloServer = async () => {
 
   app.post('/api/proxy', async (req, res) => {
     try {
-      console.log('Proxy request body:', req.body); // Add this log
+      console.log('Proxy request body:', req.body); 
       const response = await axios.post('https://api.openai.com/v1/completions', req.body, {
         headers: {
           'Authorization': `Bearer ${process.env.VITE_GEMINI_API_KEY}`,
           'Content-Type': 'application/json',
         },
       });
-      console.log('Response from OpenAI:', response.data); // Add this log
+      console.log('Response from OpenAI:', response.data); 
       res.json(response.data);
     } catch (error) {
       console.error('Error in proxy:', error);
