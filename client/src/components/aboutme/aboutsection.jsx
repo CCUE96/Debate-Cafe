@@ -3,18 +3,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 
-// function About({ aboutme }) {
-//   return (
-//     <>
-//       <li>
-//           <div>
-//             <a className='about' href={aboutme.portfolio}><img src={aboutme.img} alt=''></img></a>
-//           </div>
-//       </li>
-//     </>
-//   )
-// }
-
 function AboutMe() {
   return (
     <>
@@ -23,9 +11,9 @@ function AboutMe() {
       <h1 className='pacifico about-title'>About the Team</h1>
 
     </div>
-    <div className='aboutMe'style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height:'50vh', marginTop:'200px', marginBottom:'500px'}}>
-    <Grid container spacing={2} justifyContent={'center'} style={{ width: '75%' }}>
-  <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div className='aboutMe'style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height:'80%'}}>
+    <Grid container mb={3}spacing={2} className='responsiveGrid' justifyContent={'center'} style={{ width: '75%' }}>
+  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -38,7 +26,7 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>Back End Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -51,8 +39,8 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>React Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <Paper style={{ padding: 20, height: '300px', width: '200px', marginBottom:'50px' }}>
+  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
           <div>Spencer</div>Klinkowize
@@ -64,8 +52,8 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>Team Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <Paper style={{ padding: 20, height: '300px', width: '200px', marginBottom:'50px' }}>
+  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
           <div>Wayne</div>Perry
@@ -79,6 +67,8 @@ function AboutMe() {
   </Grid>
 </Grid>
     </div>
+    <br />
+    <br />
     </>
   );
 }
