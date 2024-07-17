@@ -30,6 +30,7 @@ const AIChatModal = () => {
       const fetchSymbols = async () => {
         try {
           const response = await axios.get('/api/gemini');
+          console.log('API response:', response.data);
           if (Array.isArray(response.data)) {
             setSymbols(response.data);
           } else {
@@ -46,10 +47,14 @@ const AIChatModal = () => {
   const handleGenerateContent = async () => {
     if (input.trim() === '') return;
 
-    const result = await fetchGeminiData('generate-content', { input });
-    if (result) {
-      setConversation(prev => [...prev, { user: input, ai: result.generatedContent }]);
+    const result = await fetchGeminiData('generate-content', { contents: [{ parts: [{ text: input }] }] });
+    console.log('API result:', result); // Add this line to log the API result
+
+    if (result && result.candidates && result.candidates[0] && result.candidates[0].content) {
+      setConversation(prev => [...prev, { user: input, ai: result.candidates[0].content.parts[0].text }]);
       setInput('');
+    } else {
+      console.error('Unexpected response structure:', result);
     }
   };
 
