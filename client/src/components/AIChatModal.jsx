@@ -14,6 +14,8 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  overflow: 'auto', 
+  maxHeight: '80vh', 
 };
 
 const AIChatModal = () => {
@@ -48,7 +50,7 @@ const AIChatModal = () => {
     if (input.trim() === '') return;
 
     const result = await fetchGeminiData('generate-content', { contents: [{ parts: [{ text: input }] }] });
-    console.log('API result:', result); // Add this line to log the API result
+    console.log('API result:', result); 
 
     if (result && result.candidates && result.candidates[0] && result.candidates[0].content) {
       setConversation(prev => [...prev, { user: input, ai: result.candidates[0].content.parts[0].text }]);
@@ -90,7 +92,7 @@ const AIChatModal = () => {
             Ask
           </Button>
           <Typography id="modal-title" variant="h6" component="h2" sx={{ mt: 2 }}>
-            Gemini Symbols
+            Elon Musks Next Kid Possible Names.
           </Typography>
           <List sx={{ mt: 2 }}>
             {symbols.map((symbol, index) => (
