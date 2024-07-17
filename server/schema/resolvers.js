@@ -20,7 +20,6 @@ const resolvers = {
           ],
         });
         return allDebates.map(debate => ({
-          // id: debate._id.toString(),
           _id: debate._id.toString(),
           team1: debate.team1,
           team2: debate.team2,
@@ -71,7 +70,6 @@ const resolvers = {
           singleDebate.comments = singleDebate.comments.filter(comment => comment.userId !== null);
         }
         return {
-          // id: singleDebate._id.toString(),
           _id: singleDebate._id.toString(),
           team1: singleDebate.team1,
           team2: singleDebate.team2,

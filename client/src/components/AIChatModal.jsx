@@ -91,16 +91,6 @@ const AIChatModal = () => {
           >
             Ask
           </Button>
-          <Typography id="modal-title" variant="h6" component="h2" sx={{ mt: 2 }}>
-            Elon Musks Next Kid Possible Names.
-          </Typography>
-          <List sx={{ mt: 2 }}>
-            {symbols.map((symbol, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={symbol} />
-              </ListItem>
-            ))}
-          </List>
         </Box>
       </Modal>
     </div>
