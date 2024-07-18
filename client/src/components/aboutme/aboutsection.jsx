@@ -6,14 +6,14 @@ import { Typography } from '@mui/material';
 function AboutMe() {
   return (
     <>
-     <div style={{ textAlign: 'center', marginTop: '50px' }}> {/* Adjusted for centering and spacing */}
+     <div style={{ textAlign: 'center', marginTop: '50px', marginBottom:'100px' }}> {/* Adjusted for centering and spacing */}
 
       <h1 className='pacifico about-title'>About the Team</h1>
 
     </div>
     <div className='aboutMe'style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height:'80%'}}>
     <Grid container mb={3}spacing={2} className='responsiveGrid' justifyContent={'center'} style={{ width: '75%' }}>
-  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Grid item xs={12} lg={3} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -26,7 +26,7 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>Back End Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Grid item xs={12} lg={3} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -39,7 +39,7 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>React Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Grid item xs={12} lg={3} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -52,7 +52,7 @@ function AboutMe() {
       <Typography style={{ marginTop: 10 }}>Team Lead</Typography>
     </Paper>
   </Grid>
-  <Grid item xs={12} lg={6} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Grid item xs={12} lg={3} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Paper style={{ padding: 20, height: '300px', width: '200px' }}>
       <Typography variant="h5">
         <div className='yanone'>
@@ -62,7 +62,7 @@ function AboutMe() {
       <a href='https://github.com/TheQuestioningCake?tab=repositoriess' target='_blank' rel='noopener noreferrer'>
       <img src="images/wayne.jpg" alt="Wayne Perry" style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '200px', objectFit: 'contain', marginTop: 10 }} />
       </a>
-      <Typography style={{ marginTop: 10 }}>goat of all things</Typography>
+      <Typography style={{ marginTop: 10 }}>Stripe Integration / Support</Typography>
     </Paper>
   </Grid>
 </Grid>
