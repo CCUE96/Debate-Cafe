@@ -1,9 +1,7 @@
 
 # Debate Cafe
 
-Debate Buddy is a dynamic platform designed to facilitate engaging and structured debates on a wide array of topics. Our application provides a unique blend of user interaction and AI assistance to create a comprehensive debating experience.
-
-Debate Buddy is a dynamic platform designed to facilitate engaging and structured debates on a wide array of topics. Our application provides a unique blend of user interaction and AI assistance to create a comprehensive debating experience.
+Debate Cafe is a dynamic platform designed to facilitate engaging and structured debates on a wide array of topics. Our application provides a unique blend of user interaction and AI assistance to create a comprehensive debating experience.
 
 ## Table of Contents
 - [About the Project](#about-the-project)
@@ -17,7 +15,7 @@ Debate Buddy is a dynamic platform designed to facilitate engaging and structure
 - [License](#license)
 
 ## About the Project
-Debate Buddy is an innovative application that allows users to create, participate, and engage in debates. With the integration of AI technologies and real-time data, Debate Buddy enhances the debating experience, providing users with relevant information and dynamic interaction capabilities.
+Debate Cade is an innovative application that allows users to create, participate, and engage in debates. With the integration of AI technologies and real-time data, Debate Cafe enhances the debating experience, providing users with relevant information and dynamic interaction capabilities.
 
 ## Features
 - **Create Debates**: Initiate debates on various topics and invite others to join.
