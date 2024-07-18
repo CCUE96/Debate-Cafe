@@ -1,4 +1,4 @@
-# Debate Buddy
+# Debate Cafe
 
 Debate Buddy is a dynamic platform designed to facilitate engaging and structured debates on a wide array of topics. Our application provides a unique blend of user interaction and AI assistance to create a comprehensive debating experience.
 
