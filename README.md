@@ -100,4 +100,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 https://github.com/CCUE96/Debate-Cafe
 ## Deployed Site
 https://debate-cafe.onrender.com/
-
+## Presentation
+https://www.canva.com/design/DAGLFKTYsDQ/e2UOqVshNvKqOnihhwZxSw/edit?utm_content=DAGLFKTYsDQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
